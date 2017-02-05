@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 public static class WebAPI
 {
-	private static string urlDev = "http://aqua-guardians-dev.herokuapp.com/api",
-	urlDefault = "http://aquaguardians.com.br/api";
+	private static string urlDev = "https://set-web-dev.herokuapp.com/api",
+	urlDefault = "https://set-web.herokuapp.com//api";
 
 	private static string _url = urlDev,
-	_pvtKey = "",
+	_pvtKey = "de7206872c37dcab45f6b4ceae174cedb4f5f5e7",
 	_apiPlace = "/";
 
 	public static string url { get { return _url; } }

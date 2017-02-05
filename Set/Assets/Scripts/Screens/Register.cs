@@ -7,15 +7,13 @@ using System.Collections;
 using System.Security.Cryptography;
 using System.Text;
 
-public class Register : GenericScreen {
-
-	// Use this for initialization
-	[Header("Screen elements")]
+public class Register : GenericScreen 
+{
 	public InputField nameField, emailField, passField, repPassField;
 
 	public void Start () 
 	{
-		UnityAndroidExtras.instance.Init();
+		AlertsAPI.instance.Init();
 
 		backScene = "Login";
 	}
@@ -30,24 +28,29 @@ public class Register : GenericScreen {
 		if (!AreFieldsCorrect(name, email, pass, repPass))
 			return;
 
-		UnityAndroidExtras.instance.makeToast("Criando seu Áqueo...", 1);
+		AlertsAPI.instance.makeToast("Completando registro...", 1);
 
-		WWW registerRequest = Authenticator.RequestRegister(name, email, pass);
+		WWW registerRequest = LoginAPI.RequestRegister(name, email, pass);
 		ProcessRegister (registerRequest);
 	}
 
 	public void ProcessRegister (WWW registerRequest)
 	{
-		string Error = registerRequest.error;
+		string Response = registerRequest.text,
+		Error = registerRequest.error;
 
 		if (Error == null) 
 		{
-			UnityAndroidExtras.instance.makeToast("Agora você pertence ao mundo de Aqua!", 1);
+			Debug.Log("Response Register: " + Response);
+
+			AlertsAPI.instance.makeToast("Registrado(a) com sucesso.", 1);
 			LoadScene("Login");
 		}
 		else 
 		{
-			UnityAndroidExtras.instance.makeToast("E-mail já registrado", 1);
+			Debug.Log("Response Error: " + Error);
+
+			AlertsAPI.instance.makeAlert("E-mail em uso!\nInsira outro endereço de e-mail para continuar.", "OK");
 		}
 	}
 
@@ -55,19 +58,19 @@ public class Register : GenericScreen {
 	{
 		if (name.Length < 3) 
 		{
-			UnityAndroidExtras.instance.makeToast("O nome deve conter pelo menos 3 caracteres", 1);
+			AlertsAPI.instance.makeAlert("Nome muito curto!\nSeu nome deve conter pelo menos 3 caracteres.", "OK");
 			return false;
 		}
 
 		if (password.Length < 6 || repPassword.Length < 6 || password != repPassword)
 		{
-			UnityAndroidExtras.instance.makeToast("As senhas devem conter pelo menos 6 caracteres e serem iguais", 1);
+			AlertsAPI.instance.makeAlert("As senhas devem conter pelo menos 3 caracteres e serem iguais.", "OK");
 			return false;
 		}
 
 		if (!CheckEmail(email)) 
 		{
-			UnityAndroidExtras.instance.makeToast("Insira um e-mail válido", 1);
+			AlertsAPI.instance.makeAlert("E-mail inválido!\nInsira seu e-mail corretamente e tente novamente.", "OK");
 			return false;
 		}
 
