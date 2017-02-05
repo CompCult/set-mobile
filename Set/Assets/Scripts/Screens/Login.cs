@@ -25,7 +25,7 @@ public class Login : GenericScreen
 		// If user saved an email, enables Remember button
 		if (PlayerPrefs.HasKey("Email"))
 		{
-			emailField.text = PlayerPrefs.GetString("Email");
+			emailField.text = PlayerPrefs.GetString("ChangeTrees-Email");
 			rememberMe.isOn = true;
 		}
 		else 
@@ -58,13 +58,17 @@ public class Login : GenericScreen
 			Debug.Log("Response received: " + Response);
 
 			if (rememberMe.isOn)
-				PlayerPrefs.SetString("Email", emailField.text);
+				PlayerPrefs.SetString("ChangeTrees-Email", emailField.text);
 			else
-				PlayerPrefs.DeleteKey("Email");
+				PlayerPrefs.DeleteKey("ChangeTrees-Email");
 
+			UserManager.UpdateUser(Response);
+			LoadScene("Home");
 		}
 		else 
 		{
+			Debug.Log("Error received: " + Error);
+
 			if (Error.Contains("404"))
 				AlertsAPI.instance.makeAlert("Dados incorretos!\nVerifique se inseriu seu e-mail corretamente.", "OK");
 			else if (Error.Contains("500"))

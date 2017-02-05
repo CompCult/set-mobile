@@ -12,6 +12,9 @@ public static class UserManager
 
 	public static void UpdateUser(string json)
 	{
-		JsonUtility.FromJsonOverwrite(json, user);
+		if (user != null)
+			JsonUtility.FromJsonOverwrite(json, user);
+		else
+			user = JsonUtility.FromJson<User>(json);
 	}
 }
