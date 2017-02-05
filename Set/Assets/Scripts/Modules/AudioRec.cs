@@ -15,7 +15,7 @@ public static class AudioRec
 		SavWav.instance.Init();
 
 		if (Microphone.devices.Length <= 0)
-			UnityAndroidExtras.instance.makeToast("Nenhum microfone encontrado", 1);
+			AlertsAPI.instance.makeToast("Nenhum microfone encontrado", 1);
 		else 
 		{
 			micConnected = true;
@@ -60,7 +60,7 @@ public static class AudioRec
 				audioSource.clip = newClip;  
 
 				SavWav.instance.Save ("voice", audioSource.clip);
-				UnityAndroidExtras.instance.makeToast("Gravação concluída", 1);
+				AlertsAPI.instance.makeToast("Gravação concluída", 1);
 			}            
 		}
 	}
@@ -68,7 +68,7 @@ public static class AudioRec
 	public static void ListenAudio()
 	{
 		if (audioSource.clip == null)
-			UnityAndroidExtras.instance.makeToast("Nenhum áudio gravado", 1);
+			AlertsAPI.instance.makeToast("Nenhum áudio gravado", 1);
 
 		else if (isRecorded()) // If recorded 
 		{

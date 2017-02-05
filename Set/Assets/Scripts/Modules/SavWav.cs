@@ -31,7 +31,7 @@ public class SavWav: MonoBehaviour
 	public bool Save(string filename, AudioClip clip) 
 	{
 		if(clip == null)
-			UnityAndroidExtras.instance.makeToast("Nenhum áudio gravado", 1);
+			AlertsAPI.instance.makeToast("Nenhum áudio gravado", 1);
 
 		if (!filename.ToLower().EndsWith(".wav")) {
 			filename += ".wav";

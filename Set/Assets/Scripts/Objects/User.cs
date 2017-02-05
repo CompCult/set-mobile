@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class User {
-
+[System.Serializable]
+public class User 
+{
 	public int id,
-	address,
-	level,
-	coins,
 	xp;
 
 	public string name,
 	email,
-	camera_password,
+	identification,
+	institution,
+	course,
 	cpf,
-	birth,
 	phone;
 }

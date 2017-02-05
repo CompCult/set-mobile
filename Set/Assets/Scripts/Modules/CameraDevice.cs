@@ -9,11 +9,6 @@ public static class CameraDevice
 
 	public static void ShowCameraImage()
 	{
-		cameraPlane.GetComponent<Renderer>().material.mainTexture = null;
-
-		if (cameraDevice != null)
-			cameraDevice.Stop();
-
 		cameraDevice = new WebCamTexture();
 		cameraPlane.GetComponent<Renderer>().material.mainTexture = cameraDevice;
 
