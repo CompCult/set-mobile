@@ -10,9 +10,10 @@ public class User
 
 	public string name,
 	email,
-	identification,
-	institution,
-	course,
 	cpf,
-	phone;
+	registry,
+	phone,
+	course,
+	instituition,
+	rank;
 }

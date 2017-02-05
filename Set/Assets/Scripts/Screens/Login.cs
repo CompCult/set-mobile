@@ -23,7 +23,7 @@ public class Login : GenericScreen
 	private void CheckSavedEmail()
 	{
 		// If user saved an email, enables Remember button
-		if (PlayerPrefs.HasKey("Email"))
+		if (PlayerPrefs.HasKey("ChangeTrees-Email"))
 		{
 			emailField.text = PlayerPrefs.GetString("ChangeTrees-Email");
 			rememberMe.isOn = true;

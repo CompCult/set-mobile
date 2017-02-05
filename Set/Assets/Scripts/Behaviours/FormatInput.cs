@@ -6,24 +6,21 @@ using System.Text.RegularExpressions;
 public class FormatInput : MonoBehaviour 
 {
 	private InputField field;
-	private Text fieldText;
 	
 	public string Type;
 
 	public void Start () 
 	{
 		field = GetComponent<InputField>();
-		fieldText = field.GetComponent<Text>();
-
 		field.onValueChanged.AddListener(delegate {FormatValue();});
 	}
 	
 	private void FormatValue () 
 	{
-		var match = Regex.Matches(fieldText.text, @"[0-9]|[.]|[-]|[\/]").Count;
+		var match = Regex.Matches(field.text, @"[0-9]|[.]|[-]|[\/]|[()]").Count;
 
-		if(match < fieldText.text.Length)
-			fieldText.text = fieldText.text.Remove(fieldText.text.Length - 1);
+		if(match < field.text.Length)
+			field.text = field.text.Remove(field.text.Length - 1);
 		else 
 			VerifyType();
 	}
@@ -32,7 +29,7 @@ public class FormatInput : MonoBehaviour
 	{
 		switch(Type)
 		{
-			case "date":
+			case "phone":
 				FormatPhone();
 				break;
 			case "cpf":
@@ -43,19 +40,23 @@ public class FormatInput : MonoBehaviour
 
 	private void FormatPhone() 
 	{
-		if((fieldText.text.Length == 2 || fieldText.text.Length == 5) && !Input.GetKeyDown(KeyCode.Backspace))
-			fieldText.text = fieldText.text + "/";
+		if((field.text.Length == 2) && !Input.GetKeyDown(KeyCode.Backspace))
+			field.text = "(" + field.text + ")";
+		else
+			if((field.text.Length == 8) && !Input.GetKeyDown(KeyCode.Backspace))
+				field.text = field.text + "-";
 
-		field.caretPosition = fieldText.text.Length + 1;
+		field.caretPosition = field.text.Length + 1;
 	}
 
 	private void FormatCpf() 
 	{
-		if((fieldText.text.Length == 3 || fieldText.text.Length == 7) && !Input.GetKeyDown(KeyCode.Backspace))
-			fieldText.text = fieldText.text + ".";
-		else if(fieldText.text.Length == 11 && !Input.GetKeyDown(KeyCode.Backspace))
-			fieldText.text = fieldText.text + "-";
+		if((field.text.Length == 3 || field.text.Length == 7) && !Input.GetKeyDown(KeyCode.Backspace))
+			field.text = field.text + ".";
+		else 
+			if(field.text.Length == 11 && !Input.GetKeyDown(KeyCode.Backspace))
+				field.text = field.text + "-";
 		
-		field.caretPosition = fieldText.text.Length + 1;
+		field.caretPosition = field.text.Length + 1;
 	}
 }
