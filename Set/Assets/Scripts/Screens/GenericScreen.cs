@@ -13,25 +13,25 @@ public class GenericScreen : MonoBehaviour
 			LoadBackScene();
 	}
 
-	public void LoadScene(string sceneName) 
-	{
-		if (sceneName != null) 
-			SceneManager.LoadScene(sceneName);
-		else
-			Application.Quit();
-	}
-
-	private void LoadNextScene()
+	public void LoadNextScene()
 	{
 		LoadScene(nextScene);
 	}
 
-	private void LoadBackScene()
+	public void LoadBackScene()
 	{
 		LoadScene(backScene);
 	}
 
-	private void ReloadScene()
+	public void LoadScene(string Scene) 
+	{
+		if (Scene != null) 
+			SceneManager.LoadScene(Scene);
+		else
+			Application.Quit();
+	}
+
+	public void ReloadScene()
 	{
 		Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);

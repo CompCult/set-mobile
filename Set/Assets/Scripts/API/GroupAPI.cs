@@ -10,8 +10,7 @@ public static class GroupAPI
 		createForm.AddField ("name", groupName);
 		createForm.AddField ("owner_id", ownerID);
 
-		WebAPI.apiPlace = "/group/";
-		WebAPI.pvtKey = "6b2b7f9bc0";
+		WebAPI.apiPlace = "/group/create/";
 
 		Debug.Log("Group Name:" + groupName);
 		Debug.Log("Owner ID: " + ownerID);
@@ -25,8 +24,7 @@ public static class GroupAPI
 		WWWForm deleteForm = new WWWForm ();
 		deleteForm.AddField ("group_id", groupID);
 
-		WebAPI.apiPlace = "/group/remove/";
-		WebAPI.pvtKey = "6b2b7f9bc0";
+		WebAPI.apiPlace = "/group/destroy/";
 
 		return WebAPI.Post(deleteForm);
 	}
@@ -37,8 +35,7 @@ public static class GroupAPI
 		addForm.AddField ("user_email", memberEmail);
 		addForm.AddField ("group_id", groupID);
 
-		WebAPI.apiPlace = "/group/add-user/";
-		WebAPI.pvtKey = "6b2b7f9bc0";
+		WebAPI.apiPlace = "/group/add-member/";
 
 		return WebAPI.Post(addForm);
 	}
@@ -49,25 +46,20 @@ public static class GroupAPI
 		removeForm.AddField ("user_email", memberEmail);
 		removeForm.AddField ("group_id", groupID);
 
-		WebAPI.apiPlace = "/group/remove-user/";
-		WebAPI.pvtKey = "6b2b7f9bc0";
+		WebAPI.apiPlace = "/group/remove-member/";
 
 		return WebAPI.Post(removeForm);
 	}
 
 	public static WWW RequestGroups()
 	{
-		WebAPI.apiPlace = "/user/" + UserManager.user.id + "/groups/";
-		WebAPI.pvtKey = "6b2b7f9bc0";
-
+		WebAPI.apiPlace = "/user/" + UserManager.user.id + "/show-groups/";
 		return WebAPI.Get();
 	}
 
 	public static WWW RequestGroupInfo()
 	{
-		WebAPI.apiPlace = "/group/" + GroupManager.group.id + "/";
-		WebAPI.pvtKey = "6b2b7f9bc0";
-
+		WebAPI.apiPlace = "/group/show/" + GroupManager.group.id + "/";
 		return WebAPI.Get();
 	}
 }
