@@ -7,6 +7,7 @@ public class Missions : GenericScreen
 {
 	public GameObject missionCard, publicMissionsList, paperMission;
 	public Text missionName, missionDescription;
+	public InputField privateMissionID;
 
 	public List<Mission> missionList;
 
@@ -71,7 +72,37 @@ public class Missions : GenericScreen
         Destroy(missionCard);
      }
 
-     public void SelectActivity(Text missionName)
+     public void SelectPrivateMission()
+     {
+     	if (privateMissionID.text == "")
+     		return;
+
+     	WWW missionRequest = MissionAPI.RequestPrivateMission(privateMissionID.text);
+
+     	string Error = missionRequest.error,
+     	Response = missionRequest.text;
+
+     	if (Error == null)
+     	{
+     		if (Response.Contains(LocalizationManager.GetText("InvalidMission")))
+     		{
+     			AlertsAPI.instance.makeAlert("Missão não encontrada!\nVerifique se inseriu o código corretamente.", "OK");
+     			return;
+     		}
+
+     		MissionManager.UpdateMission(Response);
+
+ 			missionDescription.text = MissionManager.mission.description;
+ 			ShowMissionList(false);
+     	}
+     	else
+     	{
+     		Debug.Log("Error get mission: " + Error);
+     		AlertsAPI.instance.makeAlert("Ops, falha ao receber missão!\nVerifique sua conexão e tente novamente.", "OK");
+     	}
+     }
+
+     public void SelectPublicMission(Text missionName)
      {
      	foreach (Mission mission in missionList)
      	{

@@ -4,11 +4,11 @@ using System.Collections;
 [System.Serializable]
 public class MissionResponse 
 {
-	public int activity_id,
+	public int mission_id,
 	user_id;
 
 	public string text,
-	coord;
+	coordinates;
 
 	public byte[] photo,
 	audio;

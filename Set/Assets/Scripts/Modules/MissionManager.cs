@@ -8,7 +8,11 @@ public static class MissionManager
 
 	public static void UpdateMission (string json)
 	{
-		JsonUtility.FromJsonOverwrite(json, mission);
+		if (mission != null)
+			JsonUtility.FromJsonOverwrite(json, mission);
+		else
+			mission = JsonUtility.FromJson<Mission>(json);
+
 		missionResponse = new MissionResponse ();
 	}
 

@@ -8,7 +8,10 @@ public class GroupManager
 
 	public static void UpdateGroup (string json)
 	{
-		JsonUtility.FromJsonOverwrite(json, group);
+		if (group != null)
+			JsonUtility.FromJsonOverwrite(json, group);
+		else
+			group = JsonUtility.FromJson<Group>(json);
 	}
 
 	public static void UpdateGroup (Group newGroup)
