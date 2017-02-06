@@ -2,21 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class QuestAPI
+public static class MissionAPI
 {
 	public static WWW RequestPublicMisions ()
 	{
 		WebAPI.apiPlace = "/mission/public/";
-		WebAPI.pvtKey = "ec689306c5";
-
 		return WebAPI.Get();
 	}
 
 	public static WWW RequestPrivateMission (string missionID)
 	{
 		WebAPI.apiPlace = "/mission/" + missionID + "/";
-		WebAPI.pvtKey = "ec689306c5";
-
 		return WebAPI.Get();
 	}
 
@@ -39,7 +35,6 @@ public static class QuestAPI
  			responseForm.AddBinaryData("audio", missionResponse.audio, "voice.wav", "audio/wav");
 
 		WebAPI.apiPlace = "/answer/";
-		WebAPI.pvtKey = "ec689306c5";
 
 		return WebAPI.Post(responseForm);
 	}

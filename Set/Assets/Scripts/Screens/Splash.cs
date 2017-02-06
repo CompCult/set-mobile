@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Splash : GenericScreen 
 {
-	public GameObject loadingIcon, alertMenu;
+	public GameObject fruitIcon, loadingIcon, alertMenu;
 
 	public void Start () 
 	{
@@ -24,28 +24,36 @@ public class Splash : GenericScreen
 
 	private IEnumerator SplashTime () 
 	{
-		if (PlayerPrefs.HasKey("ChangeTrees-StartAlert"))
-		{
-			loadingIcon.SetActive(true);
-			alertMenu.SetActive(false);
-		}
-		else
-		{
-			loadingIcon.SetActive(false);
-			alertMenu.SetActive(true);
-		}
-
-		yield return new WaitForSeconds(2);
-
 		// Disables Android Status Bar
 		AndroidScreen.statusBarState = AndroidScreen.States.Hidden;
 		// Enables Android Navigation Bar
 		AndroidScreen.navigationBarState = AndroidScreen.States.Visible;
 
-		CheckVersion();
+		loadingIcon.SetActive(true);
+		alertMenu.SetActive(false);
+
+		if (IsUpdated())
+		{
+			if (PlayerPrefs.HasKey("ChangeTrees-StartAlert"))
+			{
+				yield return new WaitForSeconds(2);
+				LoadScene("Login");
+			}
+			else
+			{
+				loadingIcon.SetActive(false);
+				alertMenu.SetActive(true);
+			}
+		}
+		else
+		{
+			loadingIcon.SetActive(false);
+			alertMenu.SetActive(false);
+			fruitIcon.SetActive(true);
+		}
 	}
 
-	private void CheckVersion()
+	private bool IsUpdated()
 	{
 		WWW versionRequest = MiscAPI.RequestVersion();
 
@@ -57,17 +65,19 @@ public class Splash : GenericScreen
 			if (MiscAPI.GetVersion() == Response)
 			{
 				Debug.Log("Version Updated");
-				LoadScene("Login");
+				return true;
 			}
 			else
 			{
 				AlertsAPI.instance.makeAlert("Versão incorreta!\nAcesse nossa página de aplicativo na Play Store e atualize seu Change Trees para a última versão.", "Entendi");
+				return false;
 			}
 		}
 		else 
 		{
 			Debug.Log("Error on version: " + Response);
 			AlertsAPI.instance.makeAlert("Falha ao obter sua versão!\nVerifique sua conexão e tente novamente em breve.", "OK");
+			return false;
 		}
 	}
 }
