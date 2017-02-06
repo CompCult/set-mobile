@@ -22,7 +22,7 @@ public static class GroupAPI
 	public static WWW DeleteGroup (int groupID)
 	{
 		WWWForm deleteForm = new WWWForm ();
-		deleteForm.AddField ("group_id", groupID);
+		deleteForm.AddField ("id", groupID);
 
 		WebAPI.apiPlace = "/group/destroy/";
 

@@ -14,6 +14,14 @@ public class Splash : GenericScreen
 		StartCoroutine(SplashTime());
 	}
 
+	public void ContinueToLogin(bool DefinitiveContinue)
+	{
+		if (DefinitiveContinue)
+			PlayerPrefs.SetString("ChangeTrees-StartAlert", "NoAlert");
+
+		LoadScene("Login");
+	}
+
 	private IEnumerator SplashTime () 
 	{
 		if (PlayerPrefs.HasKey("ChangeTrees-StartAlert"))
@@ -34,17 +42,32 @@ public class Splash : GenericScreen
 		// Enables Android Navigation Bar
 		AndroidScreen.navigationBarState = AndroidScreen.States.Visible;
 
-		if (loadingIcon.activeSelf)
-		{
-			LoadScene("Login");
-		}
+		CheckVersion();
 	}
 
-	public void ContinueToLogin(bool DefinitiveContinue)
+	private void CheckVersion()
 	{
-		if (DefinitiveContinue)
-			PlayerPrefs.SetString("ChangeTrees-StartAlert", "NoAlert");
+		WWW versionRequest = MiscAPI.RequestVersion();
 
-		LoadScene("Login");
+		string Error = versionRequest.error,
+		Response = versionRequest.text;
+
+		if (Error == null)
+		{
+			if (MiscAPI.GetVersion() == Response)
+			{
+				Debug.Log("Version Updated");
+				LoadScene("Login");
+			}
+			else
+			{
+				AlertsAPI.instance.makeAlert("Versão incorreta!\nAcesse nossa página de aplicativo na Play Store e atualize seu Change Trees para a última versão.", "Entendi");
+			}
+		}
+		else 
+		{
+			Debug.Log("Error on version: " + Response);
+			AlertsAPI.instance.makeAlert("Falha ao obter sua versão!\nVerifique sua conexão e tente novamente em breve.", "OK");
+		}
 	}
 }
