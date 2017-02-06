@@ -9,7 +9,8 @@ using System.Text;
 
 public class Profile : GenericScreen 
 {
-	public InputField nameField,
+	public Text nameField;
+	public InputField nameProfileField,
 	emailField,
 	cpfField,
 	registryField,
@@ -30,6 +31,7 @@ public class Profile : GenericScreen
 		User user = UserManager.user;
 
 		nameField.text = user.name;
+		nameProfileField.text = user.name;
 		emailField.text = user.email;
 		cpfField.text = user.cpf;
 		registryField.text = user.registry;
@@ -42,7 +44,7 @@ public class Profile : GenericScreen
 	{
 		int id = UserManager.user.id;
 		
-		string name = nameField.text,
+		string name = nameProfileField.text,
 		email = emailField.text,
 		cpf = cpfField.text,
 		registry = registryField.text,
@@ -82,7 +84,7 @@ public class Profile : GenericScreen
 	{
 		User user = UserManager.user;
 
-		user.name = nameField.text;
+		user.name = nameProfileField.text;
 		user.email = emailField.text;
 		user.cpf = cpfField.text;
 		user.registry = registryField.text;

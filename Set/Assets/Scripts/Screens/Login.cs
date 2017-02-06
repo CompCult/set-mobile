@@ -22,7 +22,6 @@ public class Login : GenericScreen
 
 	private void CheckSavedEmail()
 	{
-		// If user saved an email, enables Remember button
 		if (PlayerPrefs.HasKey("ChangeTrees-Email"))
 		{
 			emailField.text = PlayerPrefs.GetString("ChangeTrees-Email");
@@ -50,34 +49,46 @@ public class Login : GenericScreen
 
 	private void ProcessLogin (WWW loginRequest)
 	{
-		string Error = loginRequest.error,
-		Response = loginRequest.text;
+		string error = loginRequest.error,
+		response = loginRequest.text;
 
-		if (Error == null) 
+		if (error == null) 
 		{
-			Debug.Log("Response received: " + Response);
+			Debug.Log("Response received: " + response);
+
+			if (response.Contains(LocalizationManager.GetText("PasswordIncorrect")))
+			{
+				AlertsAPI.instance.makeAlert("Senha incorreta!\nVerifique se inseriu os dados corretamente.", "OK");
+				return;
+			}
+
+			if (response.Contains(LocalizationManager.GetText("EmailDontExist")))
+			{
+				AlertsAPI.instance.makeAlert("E-mail não econtrado!\nVerifique se inseriu os dados corretamente.", "OK");
+				return;
+			}		
 
 			if (rememberMe.isOn)
 				PlayerPrefs.SetString("ChangeTrees-Email", emailField.text);
 			else
 				PlayerPrefs.DeleteKey("ChangeTrees-Email");
 
-			UserManager.UpdateUser(Response);
+			UserManager.UpdateUser(response);
 			LoadScene("Home");
 		}
 		else 
 		{
-			Debug.Log("Error received: " + Error);
+			Debug.Log("Error received: " + error);
 
-			if (Error.Contains("404"))
-				AlertsAPI.instance.makeAlert("Dados incorretos!\nVerifique se inseriu seu e-mail corretamente.", "OK");
-			else if (Error.Contains("500"))
-			{
-				if (Application.platform == RuntimePlatform.Android) 
-					AlertsAPI.instance.makeAlert("Dados incorretos!\nVerifique seu e-mail e senha.", "OK");
-			}
+			if (error.Contains("404"))
+				AlertsAPI.instance.makeAlert("Servidor não encontrado!\nContate o administrador do sistema.", "OK");
 			else 
-				AlertsAPI.instance.makeAlert("Ops!\nHouve um problema ao conectar-se com o servidor. Tente novamente mais tarde.", "OK");
+				if (error.Contains("500"))
+				{
+					AlertsAPI.instance.makeAlert("Ops, falha no servidor!\nContate o administrador do sistema.", "OK");
+				}
+				else 
+					AlertsAPI.instance.makeAlert("Ops!\nHouve um problema ao conectar-se com o servidor. Tente novamente mais tarde.", "OK");
 		}
 	}
 

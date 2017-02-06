@@ -1,16 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Missions : GenericScreen {
+public class Missions : GenericScreen 
+{
+	public Text nameField;
 
-	// Use this for initialization
-	void Start () {
-		
+	public void Start () 
+	{
+		AlertsAPI.instance.Init();
+		backScene = "Home";
+
+		FillUserInfo();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	private void FillUserInfo()
+	{
+		nameField.text = UserManager.user.name;
 	}
 }

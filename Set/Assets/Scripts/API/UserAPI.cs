@@ -4,10 +4,10 @@ using System.Security.Cryptography;
 
 public static class UserAPI 
 {
-	public static WWW UpdateUser (int id, string name, string email, string cpf, string registry, string phone, string course, string instituition)
+	public static WWW UpdateUser (int userID, string name, string email, string cpf, string registry, string phone, string course, string instituition)
 	{
 		WWWForm updateForm = new WWWForm();
-		updateForm.AddField ("id", id);
+		updateForm.AddField ("id", userID);
 		updateForm.AddField ("name", name);
 		updateForm.AddField ("email", email);
 		updateForm.AddField ("cpf", cpf);
@@ -19,5 +19,12 @@ public static class UserAPI
 		WebAPI.apiPlace = "/user/update/";
 
 		return WebAPI.Post(updateForm);
+	}
+
+	public static WWW RequestUser (int userID)
+	{
+		WebAPI.apiPlace = "/user/show/" + userID + "/";
+
+		return WebAPI.Get();
 	}
 }

@@ -5,5 +5,4 @@ using UnityEngine;
 public class Response
 {
 	public string status, msg;
-	public User user;
 }

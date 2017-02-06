@@ -12,48 +12,34 @@ public static class LocalizationManager
 	private static XmlDocument xmlDoc = new XmlDocument();
 	private static XmlReader reader;
 	
-	private static string[] tags;
 	private static string lang;
-
-	public static string GetLang () 
-	{
-		return lang;
-	}
-
-	public static void SetLang (string lan) 
-	{
-		PlayerPrefs.SetString("Language", lan);
-	}
 
 	public static void Start () 
 	{
-		tags = new string[] {"NULL", "PT", "EN"};
 		languageFile = (TextAsset) Resources.Load ("Lang/Translations", typeof(TextAsset));
-
-		if (!PlayerPrefs.HasKey("Language")) 
-		{
-			lang = tags[0];
-			return;
-		}
-		else 
-		{
-			lang = PlayerPrefs.GetString("Language");
-		}
+		lang = "PT";
 
 		texts = new Dictionary<string, string>();
 		reader = XmlReader.Create(new StringReader(languageFile.text));
 		xmlDoc.Load(reader);
 
-		XmlNodeList langs = xmlDoc["Data"].GetElementsByTagName(lang);
+		XmlNodeList words = xmlDoc["Data"].GetElementsByTagName(lang);
 		
-		for (int j = 0; j < langs.Count; j++) 
+		for (int j = 0; j < words.Count; j++) 
 		{
-			texts.Add(langs[j].Attributes["Key"].Value, langs[j].Attributes["Word"].Value);
+			texts.Add(words[j].Attributes["Key"].Value, words[j].Attributes["Word"].Value);
 		}
+
+		Debug.Log("Localization manager started");
 	}
 
 	public static string GetText(string key) 
 	{
 		return texts[key];
+	}
+
+	public static string GetLang () 
+	{
+		return lang;
 	}
 }

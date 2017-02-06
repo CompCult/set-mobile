@@ -1,16 +1,24 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class About : GenericScreen {
+public class About : GenericScreen 
+{
+	public Text NameField, versionField;
 
-	// Use this for initialization
-	void Start () {
-		
+	public void Start () 
+	{
+		AlertsAPI.instance.Init();
+		backScene = null;
+
+		FillUserInfo();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	private void FillUserInfo()
+	{
+		NameField.text = UserManager.user.name;
+		versionField.text = "Versão " + MiscAPI.GetVersion();
 	}
 }
