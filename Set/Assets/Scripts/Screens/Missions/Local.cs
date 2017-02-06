@@ -8,9 +8,9 @@ public class Local : GenericScreen
 	{
 		AlertsAPI.instance.Init();
 
-		if (MissionManager.mission.audio_file)
+		if (MissionManager.mission.audio_enabled)
 			backScene = "Voice";
-		else if (MissionManager.mission.photo_file)
+		else if (MissionManager.mission.photo_enabled)
 			backScene = "Media";
 		else 
 			backScene = "Description";

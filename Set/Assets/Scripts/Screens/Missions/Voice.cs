@@ -19,7 +19,7 @@ public class Voice : GenericScreen
 		AudioRec.audioSource = audioSource;
 		isRecording = false;
 
-		if (MissionManager.mission.photo_file)
+		if (MissionManager.mission.photo_enabled)
 			backScene = "Media";
 		else
 			backScene = "Description";

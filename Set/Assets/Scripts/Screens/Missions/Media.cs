@@ -38,7 +38,7 @@ public class Media : GenericScreen
 		if (CameraDevice.Photo != null)
 			MissionManager.missionResponse.photo = CameraDevice.Photo.EncodeToPNG();
 
-		if (mission.audio_file)
+		if (mission.audio_enabled)
 			LoadScene("Voice");
 		else if (mission.gps_enabled)
 			LoadScene("GPS");

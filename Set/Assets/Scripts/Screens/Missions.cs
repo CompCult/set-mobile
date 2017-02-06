@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class Missions : GenericScreen 
 {
 	public GameObject missionCard, publicMissionsList, paperMission;
-	public Text missionName, missionDescription;
+	public Text nameField, missionName, missionDescription;
 	public InputField privateMissionID;
 
 	public List<Mission> missionList;
@@ -18,7 +18,13 @@ public class Missions : GenericScreen
 
 		ShowMissionList(true);
 		ReceivePublicMissions();
+        FillFieldsWithPlayerInfo ();
 	}
+
+    private void FillFieldsWithPlayerInfo () 
+    {
+        nameField.text = UserManager.user.name;
+    }
 
 	private void ReceivePublicMissions()
 	{

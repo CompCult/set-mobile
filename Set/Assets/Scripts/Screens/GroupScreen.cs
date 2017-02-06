@@ -7,17 +7,24 @@ using UnityEngine.SceneManagement;
 public class GroupScreen : GenericScreen 
 {
 	public GameObject memberCard, deleteMemberButton, deleteGroupButton, exitGroupButton;
-	public Text groupName, memberName, memberEmail, newMemberEmail;
+	public Text nameField, groupName, memberName, memberEmail, newMemberEmail;
 
 	private bool isOwner;
 
 	public void Start () 
 	{
+		AlertsAPI.instance.Init();
 		backScene = "Groups";
 		groupName.text = GroupManager.group.name;
 
+		FillFieldsWithPlayerInfo();
 		RequestGroupInfo();
 	}
+
+	private void FillFieldsWithPlayerInfo () 
+    {
+        nameField.text = UserManager.user.name;
+    }
 
 	private void RequestGroupInfo ()
 	{

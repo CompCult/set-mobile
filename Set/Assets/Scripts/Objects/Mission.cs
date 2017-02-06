@@ -14,7 +14,7 @@ public class Mission
 
 	public bool gps_enabled,
 				text_enabled,
-				video_file,
-			    photo_file,
-			    audio_file;
+				video_enabled,
+			    photo_enabled,
+			    audio_enabled;
 }

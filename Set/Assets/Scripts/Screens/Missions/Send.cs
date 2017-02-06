@@ -12,9 +12,9 @@ public class Send : GenericScreen
 			backScene = "Write";
 		else if (MissionManager.mission.gps_enabled)
 			backScene = "GPS";
-		else if (MissionManager.mission.audio_file)
+		else if (MissionManager.mission.audio_enabled)
 			backScene = "Voice";
-		else if (MissionManager.mission.photo_file)
+		else if (MissionManager.mission.photo_enabled)
 		 	backScene = "Media";
 		else 
 			backScene = "Description";

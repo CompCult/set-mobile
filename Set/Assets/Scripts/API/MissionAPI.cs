@@ -20,7 +20,8 @@ public static class MissionAPI
 	{
 		WWWForm responseForm = new WWWForm ();
  		responseForm.AddField("user_id", missionResponse.user_id);
- 		responseForm.AddField ("mission_id", missionResponse.mission_id);
+ 		responseForm.AddField ("answerable_id", missionResponse.mission_id);
+ 		responseForm.AddField ("answerable_type", "Mission");
 
  		if (mission.gps_enabled) 
  			responseForm.AddField ("coordinates", missionResponse.coordinates); 
@@ -28,13 +29,13 @@ public static class MissionAPI
  		if (mission.text_enabled)
  			responseForm.AddField ("text", missionResponse.text);
 
-		if (mission.photo_file)
+		if (mission.photo_enabled)
  			responseForm.AddBinaryData("photo", missionResponse.photo, "Photo.png", "image/png");
 
- 		if (mission.audio_file)
+ 		if (mission.audio_enabled)
  			responseForm.AddBinaryData("audio", missionResponse.audio, "voice.wav", "audio/wav");
 
-		WebAPI.apiPlace = "/answer/";
+		WebAPI.apiPlace = "/answer/create/";
 
 		return WebAPI.Post(responseForm);
 	}

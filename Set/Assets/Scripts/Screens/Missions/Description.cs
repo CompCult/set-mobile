@@ -25,9 +25,9 @@ public class Description : GenericScreen
 		Mission mission = MissionManager.mission;
 
 		// Sequence: Photo > Voice > Gps > Text > Send
-		if (mission.photo_file)
+		if (mission.photo_enabled)
 			LoadScene("Media");
-		else if (mission.audio_file)
+		else if (mission.audio_enabled)
 			LoadScene("Voice");
 		else if (mission.gps_enabled)
 			LoadScene("GPS");
