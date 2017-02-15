@@ -29,9 +29,6 @@ public class Splash : GenericScreen
 		// Enables Android Navigation Bar
 		AndroidScreen.navigationBarState = AndroidScreen.States.Visible;
 
-		loadingIcon.SetActive(true);
-		alertMenu.SetActive(false);
-
 		if (IsUpdated())
 		{
 			if (PlayerPrefs.HasKey("ChangeTrees-StartAlert"))

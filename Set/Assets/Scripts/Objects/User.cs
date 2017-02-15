@@ -8,12 +8,14 @@ public class User
 	public int id,
 	xp;
 
+	public bool active;
+
 	public string name,
 	email,
 	cpf,
 	registry,
 	phone,
 	course,
-	instituition,
+	institution,
 	rank;
 }

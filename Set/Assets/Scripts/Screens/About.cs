@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class About : GenericScreen 
 {
-	public Text NameField, versionField;
+	public Text nameField, xpField, versionField;
 
 	public void Start () 
 	{
@@ -18,7 +18,8 @@ public class About : GenericScreen
 
 	private void FillUserInfo()
 	{
-		NameField.text = UserManager.user.name;
+		nameField.text = UserManager.user.name;
+		xpField.text = "EXP " + UserManager.user.xp;
 		versionField.text = "Versão " + MiscAPI.GetVersion();
 	}
 }

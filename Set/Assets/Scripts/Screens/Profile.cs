@@ -9,13 +9,13 @@ using System.Text;
 
 public class Profile : GenericScreen 
 {
-	public Text nameField;
+	public Text nameField, xpField;
 	public InputField nameProfileField,
 	emailField,
 	cpfField,
 	registryField,
 	courseField,
-	instituitionField,
+	institutionField,
 	phoneField;
 
 	public void Start () 
@@ -31,13 +31,14 @@ public class Profile : GenericScreen
 		User user = UserManager.user;
 
 		nameField.text = user.name;
+		xpField.text = "EXP " + UserManager.user.xp;
 		nameProfileField.text = user.name;
 		emailField.text = user.email;
 		cpfField.text = user.cpf;
 		registryField.text = user.registry;
 		phoneField.text = user.phone;
 		courseField.text = user.course;
-		instituitionField.text = user.instituition;
+		institutionField.text = user.institution;
 	}
 
 	public void UpdateUserInfo()
@@ -49,13 +50,13 @@ public class Profile : GenericScreen
 		cpf = cpfField.text,
 		registry = registryField.text,
 		course = courseField.text,
-		instituition = instituitionField.text,
+		institution = institutionField.text,
 		phone = phoneField.text;
 
-		if (!CheckFields(name, email, cpf, registry, course, instituition, phone))
+		if (!CheckFields(name, email, cpf, registry, course, institution, phone))
 			return;
 
-		WWW updateRequest = UserAPI.UpdateUser(id, name, email, cpf, registry, phone, course, instituition);
+		WWW updateRequest = UserAPI.UpdateUser(id, name, email, cpf, registry, phone, course, institution);
 		ProcessUpdate(updateRequest);
 	}
 
@@ -90,12 +91,12 @@ public class Profile : GenericScreen
 		user.registry = registryField.text;
 		user.phone = phoneField.text;
 		user.course = courseField.text;
-		user.instituition = instituitionField.text;
+		user.institution = institutionField.text;
 
 		UserManager.UpdateUser(user);
 	}
 
-	private bool CheckFields (string name,string email, string cpf, string registry, string course, string instituition, string phone)
+	private bool CheckFields (string name,string email, string cpf, string registry, string course, string institution, string phone)
 	{
 		string errorMessage = "";
 

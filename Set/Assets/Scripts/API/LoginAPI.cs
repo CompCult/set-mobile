@@ -15,11 +15,16 @@ public static class LoginAPI
 		return WebAPI.Post(loginForm);
 	}
 
-	public static WWW RequestRegister (string name, string email, string password) 
+	public static WWW RequestRegister (string name, string email, string cpf, string registry, string phone, string institution, string course, string password) 
 	{
 		WWWForm registerForm = new WWWForm ();
 		registerForm.AddField ("name", name);
 		registerForm.AddField ("email", email);
+		registerForm.AddField ("cpf", cpf);
+		registerForm.AddField ("registry", registry);
+		registerForm.AddField ("phone", phone);
+		registerForm.AddField ("institution", institution);
+		registerForm.AddField ("course", course);
 		registerForm.AddField ("password", password);
 
 		WebAPI.apiPlace = "/user/create/";

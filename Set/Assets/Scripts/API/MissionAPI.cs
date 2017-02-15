@@ -23,17 +23,31 @@ public static class MissionAPI
  		responseForm.AddField ("answerable_id", missionResponse.mission_id);
  		responseForm.AddField ("answerable_type", "Mission");
 
+ 		Debug.Log("ID: " + missionResponse.mission_id + " / Type: Mission");
+
  		if (mission.gps_enabled) 
+ 		{
+ 			Debug.Log("Coordinates: " + missionResponse.coordinates);
  			responseForm.AddField ("coordinates", missionResponse.coordinates); 
+ 		}
 
  		if (mission.text_enabled)
+ 		{
+ 			Debug.Log("Text: " + missionResponse.text);
  			responseForm.AddField ("text", missionResponse.text);
+ 		}
 
 		if (mission.photo_enabled)
+		{
+			Debug.Log("Photo Ready");
  			responseForm.AddBinaryData("photo", missionResponse.photo, "Photo.png", "image/png");
+		}
 
  		if (mission.audio_enabled)
+ 		{
+ 			Debug.Log("Audio Ready");
  			responseForm.AddBinaryData("audio", missionResponse.audio, "voice.wav", "audio/wav");
+ 		}
 
 		WebAPI.apiPlace = "/answer/create/";
 

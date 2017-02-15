@@ -45,6 +45,8 @@ public class Send : GenericScreen
 		}
 		else 
 		{
+			Debug.Log("Error sending: " + Error);
+
 			if (Error.Contains("404 "))
 				AlertsAPI.instance.makeAlert("Que pena!\nParece que essa atividade foi removida ou já expirou.", "Tudo bem");
 			else 

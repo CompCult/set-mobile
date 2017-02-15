@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class Home : GenericScreen 
 {
-	public Text nameField, backNameField;
+	public Text nameField, xpField, backNameField;
 
 	public void Start () 
 	{
@@ -19,6 +19,7 @@ public class Home : GenericScreen
 	private void FillUserInfo()
 	{
 		nameField.text = UserManager.user.name;
+		xpField.text = "EXP " + UserManager.user.xp;
 		backNameField.text = UserManager.user.name;
 	}
 

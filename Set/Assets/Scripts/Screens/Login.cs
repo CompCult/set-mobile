@@ -74,6 +74,13 @@ public class Login : GenericScreen
 				PlayerPrefs.DeleteKey("ChangeTrees-Email");
 
 			UserManager.UpdateUser(response);
+
+			if (!UserManager.user.active)
+			{
+				AlertsAPI.instance.makeAlert("Seu registro ainda não foi validado. Aguarde até um tutor validá-lo.", "Entendi");
+				return;
+			}
+
 			LoadScene("Home");
 		}
 		else 

@@ -8,7 +8,7 @@ public class Groups : GenericScreen
 {
 	public InputField newGroupField;
 	public GameObject groupCard;
-	public Text nameField, groupName;
+	public Text nameField, xpField, groupName;
 
 	public List<Group> groupsList;
 	
@@ -24,6 +24,7 @@ public class Groups : GenericScreen
 	private void FillFieldsWithPlayerInfo () 
     {
         nameField.text = UserManager.user.name;
+        xpField.text = "EXP " + UserManager.user.xp;
     }
 
 	private void RequestUserGroups ()

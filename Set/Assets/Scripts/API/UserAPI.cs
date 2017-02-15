@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 
 public static class UserAPI 
 {
-	public static WWW UpdateUser (int userID, string name, string email, string cpf, string registry, string phone, string course, string instituition)
+	public static WWW UpdateUser (int userID, string name, string email, string cpf, string registry, string phone, string course, string institution)
 	{
 		WWWForm updateForm = new WWWForm();
 		updateForm.AddField ("id", userID);
@@ -14,7 +14,7 @@ public static class UserAPI
 		updateForm.AddField ("registry", registry);
 		updateForm.AddField ("phone", phone);
 		updateForm.AddField ("course", course);
-		updateForm.AddField ("instituition", instituition);
+		updateForm.AddField ("institution", institution);
 
 		WebAPI.apiPlace = "/user/update/";
 
