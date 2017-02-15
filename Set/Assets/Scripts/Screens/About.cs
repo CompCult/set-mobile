@@ -11,7 +11,7 @@ public class About : GenericScreen
 	public void Start () 
 	{
 		AlertsAPI.instance.Init();
-		backScene = null;
+		backScene = "Home";
 
 		FillUserInfo();
 	}
