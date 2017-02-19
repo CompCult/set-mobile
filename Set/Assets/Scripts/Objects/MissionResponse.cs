@@ -9,7 +9,8 @@ public class MissionResponse
 	group_id;
 
 	public string text,
-	coordinates;
+	coordinates,
+	type = "Mission";
 
 	public byte[] photo,
 	audio;

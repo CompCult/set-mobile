@@ -43,4 +43,9 @@ public static class CameraDevice
 		return (WebCamTexture.devices.Length > 0) ? true : false;
 	}
 
+	private static int CameraCount()
+	{
+		return WebCamTexture.devices.Length;
+	}
+
 }

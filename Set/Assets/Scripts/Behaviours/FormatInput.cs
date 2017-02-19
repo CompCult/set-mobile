@@ -8,6 +8,7 @@ public class FormatInput : MonoBehaviour
 	private InputField field;
 	
 	public string Type;
+	public bool isUpperCase;
 
 	public void Start () 
 	{
@@ -17,15 +18,34 @@ public class FormatInput : MonoBehaviour
 	
 	private void FormatValue () 
 	{
-		var match = Regex.Matches(field.text, @"[0-9]|[.]|[-]|[\/]|[()]").Count;
+		bool requiresMatch;
 
-		if(match < field.text.Length)
+		var match = Regex.Matches(field.text, @"").Count;
+		var cpfMatch = Regex.Matches(field.text, @"[0-9]|[.]|[-]").Count;
+		var phoneMatch = Regex.Matches(field.text, @"[0-9]|[-]|[()]").Count;
+
+		switch(Type)
+		{
+			case "phone":
+				match = phoneMatch;
+				requiresMatch = true;
+				break;
+			case "cpf":
+				match = cpfMatch;
+				requiresMatch = true;
+				break;
+			default:
+				requiresMatch = false;
+				break;
+		}
+
+		if(requiresMatch && match < field.text.Length)
 			field.text = field.text.Remove(field.text.Length - 1);
 		else 
-			VerifyType();
+			FormatByType();
 	}
 
-	private void VerifyType()
+	private void FormatByType()
 	{
 		switch(Type)
 		{
@@ -35,7 +55,12 @@ public class FormatInput : MonoBehaviour
 			case "cpf":
 				FormatCpf();
 				break;
+			default:
+				break;
 		}
+
+		if (isUpperCase)
+			field.text = field.text.ToUpper();
 	}
 
 	private void FormatPhone() 

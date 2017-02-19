@@ -12,7 +12,7 @@ public static class MissionAPI
 
 	public static WWW RequestPrivateMission (string missionID)
 	{
-		WebAPI.apiPlace = "/mission/show/" + missionID + "/";
+		WebAPI.apiPlace = "/mission/private/" + missionID + "/";
 		return WebAPI.Get();
 	}
 
@@ -21,9 +21,9 @@ public static class MissionAPI
 		WWWForm responseForm = new WWWForm ();
  		responseForm.AddField("user_id", missionResponse.user_id);
  		responseForm.AddField ("answerable_id", missionResponse.mission_id);
- 		responseForm.AddField ("answerable_type", "Mission");
+ 		responseForm.AddField ("answerable_type", missionResponse.type);
 
- 		Debug.Log("ID: " + missionResponse.mission_id + " / Type: Mission");
+ 		Debug.Log("ID: " + missionResponse.mission_id + " / Type: " + missionResponse.type);
 
  		if (mission.gps_enabled) 
  		{
