@@ -57,7 +57,10 @@ public class Register : GenericScreen
 		{
 			Debug.Log("Response Error: " + Error);
 
-			AlertsAPI.instance.makeAlert("E-mail em uso!\nInsira outro endereço de e-mail para continuar.", "OK");
+			if (Error.Contains("500 "))
+				AlertsAPI.instance.makeAlert("Ops, houve um problema!\nVerifique sua conexão e tente novamente mais tarde.", "OK");
+			else
+				AlertsAPI.instance.makeAlert("E-mail em uso!\nInsira outro endereço de e-mail para continuar.", "OK");
 		}
 	}
 
@@ -101,13 +104,13 @@ public class Register : GenericScreen
 			return false;
 		}
 
-		if (cpf.Length < 14)
+		if (cpf.Length < 11)
 		{
 			AlertsAPI.instance.makeAlert("Insira um CPF válido.", "OK");
 			return false;
 		}
 
-		if (phone.Length < 13)
+		if (phone.Length < 10)
 		{
 			AlertsAPI.instance.makeAlert("Insira um número de telefone válido.", "OK");
 			return false;

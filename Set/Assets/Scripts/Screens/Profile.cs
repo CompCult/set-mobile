@@ -104,11 +104,11 @@ public class Profile : GenericScreen
 			errorMessage = "Seu nome deve conter pelo menos 3 caracteres.";
 		if (!CheckEmail(email))
 			errorMessage = "Insira um e-mail válido.";
-		if (cpf.Length < 14 || !CheckCPF(cpf))
-			errorMessage = "Insira um CPF válido.\nO formato correto é 111.222.333-44.";
+		if (cpf.Length < 11)
+			errorMessage = "Insira um CPF válido.\nO formato correto é 11122233344.";
 		if (registry.Length < 9)
 			errorMessage = "Insira uma identificação válida.\nPor exemplo, uma matrícula tem formato 111222999.";
-		if (phone.Length < 11)
+		if (phone.Length < 10)
 			errorMessage = "Insira um número de telefone válido.\nInsira seu telefone com DDD.";
 
 		if (errorMessage != "") {
@@ -128,12 +128,4 @@ public class Profile : GenericScreen
 		
 		return reg.IsMatch(email);
 	}	
-
-	private bool CheckCPF(string cpf)
-	{
-		string strRegex = @"^\d{3}\.\d{3}\.\d{3}\-\d{2}$";
-	 	Regex reg = new Regex(strRegex);
-		
-		return reg.IsMatch(cpf);
-	}
 }

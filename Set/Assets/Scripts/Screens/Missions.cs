@@ -91,7 +91,7 @@ public class Missions : GenericScreen
 
      	if (Error == null)
      	{
-     		if (Response.Contains(LocalizationManager.GetText("InvalidMission")))
+     		if (Response.Contains(LocalizationManager.GetText("InvalidSecretMission")))
      		{
      			AlertsAPI.instance.makeAlert("Missão não encontrada!\nVerifique se inseriu o código corretamente.", "OK");
      			return;

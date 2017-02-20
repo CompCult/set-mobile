@@ -65,23 +65,13 @@ public class FormatInput : MonoBehaviour
 
 	private void FormatPhone() 
 	{
-		if((field.text.Length == 2) && !Input.GetKeyDown(KeyCode.Backspace))
-			field.text = "(" + field.text + ")";
-		else
-			if((field.text.Length == 8) && !Input.GetKeyDown(KeyCode.Backspace))
-				field.text = field.text + "-";
-
+		// TODO
 		field.caretPosition = field.text.Length + 1;
 	}
 
 	private void FormatCpf() 
 	{
-		if((field.text.Length == 3 || field.text.Length == 7) && !Input.GetKeyDown(KeyCode.Backspace))
-			field.text = field.text + ".";
-		else 
-			if(field.text.Length == 11 && !Input.GetKeyDown(KeyCode.Backspace))
-				field.text = field.text + "-";
-		
+		// TODO
 		field.caretPosition = field.text.Length + 1;
 	}
 }
