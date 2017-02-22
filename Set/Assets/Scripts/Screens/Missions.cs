@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class Missions : GenericScreen 
 {
 	public GameObject missionCard, publicMissionsList, paperMission;
-	public Text nameField, xpField, missionName, missionDescription;
+	public Text missionName, missionDescription;
 	public InputField privateMissionID;
 
 	public List<Mission> missionList;
@@ -16,16 +16,9 @@ public class Missions : GenericScreen
 		AlertsAPI.instance.Init();
 		backScene = "Home";
 
-        FillFieldsWithPlayerInfo ();
 		ShowMissionList(true);
 		ReceivePublicMissions();
 	}
-
-    private void FillFieldsWithPlayerInfo () 
-    {
-        nameField.text = UserManager.user.name;
-        xpField.text = "EXP " + UserManager.user.xp;
-    }
 
 	private void ReceivePublicMissions()
 	{

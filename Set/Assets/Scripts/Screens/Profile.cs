@@ -9,14 +9,8 @@ using System.Text;
 
 public class Profile : GenericScreen 
 {
-	public Text nameField, xpField;
-	public InputField nameProfileField,
-	emailField,
-	cpfField,
-	registryField,
-	courseField,
-	institutionField,
-	phoneField;
+	public InputField nameField, emailField, cpfField, registryField, phoneField;
+	public Dropdown courseField, institutionField;
 
 	public void Start () 
 	{
@@ -31,26 +25,24 @@ public class Profile : GenericScreen
 		User user = UserManager.user;
 
 		nameField.text = user.name;
-		xpField.text = "EXP " + UserManager.user.xp;
-		nameProfileField.text = user.name;
 		emailField.text = user.email;
 		cpfField.text = user.cpf;
 		registryField.text = user.registry;
 		phoneField.text = user.phone;
-		courseField.text = user.course;
-		institutionField.text = user.institution;
+		courseField.captionText.text = user.course;
+		institutionField.captionText.text = user.institution;
 	}
 
 	public void UpdateUserInfo()
 	{
 		int id = UserManager.user.id;
 		
-		string name = nameProfileField.text,
+		string name = nameField.text,
 		email = emailField.text,
 		cpf = cpfField.text,
 		registry = registryField.text,
-		course = courseField.text,
-		institution = institutionField.text,
+		course = courseField.captionText.text,
+		institution = institutionField.captionText.text,
 		phone = phoneField.text;
 
 		if (!CheckFields(name, email, cpf, registry, course, institution, phone))
@@ -85,13 +77,13 @@ public class Profile : GenericScreen
 	{
 		User user = UserManager.user;
 
-		user.name = nameProfileField.text;
+		user.name = nameField.text;
 		user.email = emailField.text;
 		user.cpf = cpfField.text;
 		user.registry = registryField.text;
 		user.phone = phoneField.text;
-		user.course = courseField.text;
-		user.institution = institutionField.text;
+		user.course = courseField.captionText.text;
+		user.institution = institutionField.captionText.text;
 
 		UserManager.UpdateUser(user);
 	}

@@ -33,7 +33,7 @@ public static class MissionAPI
 
  		if (mission.text_enabled)
  		{
- 			Debug.Log("Text: " + missionResponse.text);
+ 			Debug.Log("Text: >>" + missionResponse.text + "<<");
  			responseForm.AddField ("text", missionResponse.text);
  		}
 

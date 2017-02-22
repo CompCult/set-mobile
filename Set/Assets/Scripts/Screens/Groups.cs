@@ -8,7 +8,7 @@ public class Groups : GenericScreen
 {
 	public InputField newGroupField;
 	public GameObject groupCard;
-	public Text nameField, xpField, groupName;
+	public Text groupName;
 
 	public List<Group> groupsList;
 	
@@ -17,15 +17,8 @@ public class Groups : GenericScreen
 		AlertsAPI.instance.Init();
 		backScene = "Home";
 
-		FillFieldsWithPlayerInfo();
 		RequestUserGroups();
 	}
-
-	private void FillFieldsWithPlayerInfo () 
-    {
-        nameField.text = UserManager.user.name;
-        xpField.text = "EXP " + UserManager.user.xp;
-    }
 
 	private void RequestUserGroups ()
 	{

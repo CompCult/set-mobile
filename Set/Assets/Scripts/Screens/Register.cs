@@ -10,8 +10,9 @@ using System.Text;
 public class Register : GenericScreen 
 {
 	public InputField nameField, emailField, registryField, 
-	institutionField, courseField, cpfField, phoneField, 
-	passField, repPassField;
+	cpfField, phoneField, passField, repPassField;
+
+	public Dropdown institutionField, courseField;
 
 	public void Start () 
 	{
@@ -25,8 +26,8 @@ public class Register : GenericScreen
 		string name = nameField.text,
 		email = emailField.text,
 		registry = registryField.text,
-		institution = institutionField.text,
-		course = courseField.text,
+		institution = institutionField.captionText.text,
+		course = courseField.captionText.text,
 		cpf = cpfField.text,
 		phone = phoneField.text,
 		pass = passField.text,
@@ -35,7 +36,7 @@ public class Register : GenericScreen
 		if (!AreFieldsCorrect(name, email, registry, institution, course, cpf, phone, pass, repPass))
 			return;
 
-		AlertsAPI.instance.makeToast("Completando registro...", 1);
+		AlertsAPI.instance.makeToast("Registrando-se...", 1);
 
 		WWW registerRequest = LoginAPI.RequestRegister(name, email, cpf, registry, phone, institution, course, pass);
 		ProcessRegister (registerRequest);
@@ -50,7 +51,7 @@ public class Register : GenericScreen
 		{
 			Debug.Log("Response Register: " + Response);
 
-			AlertsAPI.instance.makeToast("Registrado(a) com sucesso.", 1);
+			AlertsAPI.instance.makeAlert("Registrado(a) com sucesso.\nPor favor, aguarde um tutor aprovar seu cadastro.", "OK");
 			LoadScene("Login");
 		}
 		else 

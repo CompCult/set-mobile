@@ -6,20 +6,13 @@ using System.Collections.Generic;
 
 public class Home : GenericScreen 
 {
-	public Text nameField, xpField, backNameField;
+	public Text backNameField;
 
 	public void Start () 
 	{
 		AlertsAPI.instance.Init();
 		backScene = null;
 
-		FillUserInfo();
-	}
-
-	private void FillUserInfo()
-	{
-		nameField.text = UserManager.user.name;
-		xpField.text = "EXP " + UserManager.user.xp;
 		backNameField.text = UserManager.user.name;
 	}
 
