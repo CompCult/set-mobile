@@ -29,8 +29,17 @@ public class Profile : GenericScreen
 		cpfField.text = user.cpf;
 		registryField.text = user.registry;
 		phoneField.text = user.phone;
-		courseField.captionText.text = user.course;
-		institutionField.captionText.text = user.institution;
+		
+		for (int i=0; i < courseField.options.Count; i++)
+			if (courseField.options[i].text.Equals(user.course))
+				courseField.value = i;
+
+		for (int i=0; i < institutionField.options.Count; i++)
+			if (institutionField.options[i].text.Equals(user.institution))
+				institutionField.value = i;
+
+		courseField.RefreshShownValue();
+		institutionField.RefreshShownValue();
 	}
 
 	public void UpdateUserInfo()
@@ -45,7 +54,7 @@ public class Profile : GenericScreen
 		institution = institutionField.captionText.text,
 		phone = phoneField.text;
 
-		if (!CheckFields(name, email, cpf, registry, course, institution, phone))
+		if (!CheckFields(name, email, cpf, registry, phone))
 			return;
 
 		WWW updateRequest = UserAPI.UpdateUser(id, name, email, cpf, registry, phone, course, institution);
@@ -62,9 +71,7 @@ public class Profile : GenericScreen
 			Debug.Log("Update response: " + Response);
 			
 			AlertsAPI.instance.makeToast("Perfil atualizado", 1);
-
 			UpdateLocalUser();
-			LoadScene(backScene);
 		}
 		else 
 		{
@@ -88,7 +95,7 @@ public class Profile : GenericScreen
 		UserManager.UpdateUser(user);
 	}
 
-	private bool CheckFields (string name,string email, string cpf, string registry, string course, string institution, string phone)
+	private bool CheckFields (string name,string email, string cpf, string registry, string phone)
 	{
 		string errorMessage = "";
 
@@ -96,14 +103,15 @@ public class Profile : GenericScreen
 			errorMessage = "Seu nome deve conter pelo menos 3 caracteres.";
 		if (!CheckEmail(email))
 			errorMessage = "Insira um e-mail válido.";
-		if (cpf.Length < 11)
+		if (cpf.Length < 14)
 			errorMessage = "Insira um CPF válido.\nO formato correto é 11122233344.";
 		if (registry.Length < 9)
 			errorMessage = "Insira uma identificação válida.\nPor exemplo, uma matrícula tem formato 111222999.";
-		if (phone.Length < 10)
+		if (phone.Length < 14)
 			errorMessage = "Insira um número de telefone válido.\nInsira seu telefone com DDD.";
 
-		if (errorMessage != "") {
+		if (errorMessage != "") 
+		{
 			AlertsAPI.instance.makeAlert(errorMessage, "OK");
 			return false;
 		}

@@ -41,7 +41,7 @@ public class Send : GenericScreen
 			Debug.Log("Response from send mission: " + Response);
 
 			AlertsAPI.instance.makeToast("Enviado com sucesso", 1);
-			LoadScene("Missions");
+			LoadScene("Answers");
 		}
 		else 
 		{

@@ -33,7 +33,7 @@ public class Register : GenericScreen
 		pass = passField.text,
 		repPass = repPassField.text;
 
-		if (!AreFieldsCorrect(name, email, registry, institution, course, cpf, phone, pass, repPass))
+		if (!AreFieldsCorrect(name, email, registry, cpf, phone, pass, repPass))
 			return;
 
 		AlertsAPI.instance.makeToast("Registrando-se...", 1);
@@ -66,8 +66,7 @@ public class Register : GenericScreen
 	}
 
 	public bool AreFieldsCorrect (string name, string email, string registry, 
-								  string institution, string course, string cpf, 
-								  string phone, string password, string repPassword)
+								  string cpf, string phone, string password, string repPassword)
 	{
 		if (name.Length < 3) 
 		{
@@ -93,25 +92,13 @@ public class Register : GenericScreen
 			return false;
 		}
 
-		if (institution.Length < 3)
-		{
-			AlertsAPI.instance.makeAlert("Nome da universidade muito curto. Insira a sigla ou nome completo corretamente.", "OK");
-			return false;
-		}
-
-		if (course.Length < 2)
-		{
-			AlertsAPI.instance.makeAlert("Insira o nome do curso corretamente. Lembre-se de digitá-lo por completo.", "OK");
-			return false;
-		}
-
-		if (cpf.Length < 11)
+		if (cpf.Length < 14)
 		{
 			AlertsAPI.instance.makeAlert("Insira um CPF válido.", "OK");
 			return false;
 		}
 
-		if (phone.Length < 10)
+		if (phone.Length < 14)
 		{
 			AlertsAPI.instance.makeAlert("Insira um número de telefone válido.", "OK");
 			return false;

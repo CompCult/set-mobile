@@ -77,4 +77,9 @@ public class Splash : GenericScreen
 			return false;
 		}
 	}
+
+	public void OpenPlayStore()
+	{
+		Application.OpenURL("https://play.google.com/store/apps/details?id=com.compcult.changetrees");
+	}
 }
