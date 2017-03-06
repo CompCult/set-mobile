@@ -27,7 +27,7 @@ public class Home : GenericScreen
 		{
 			Debug.Log("User updated");
 
-			AlertsAPI.instance.makeToast("Usuário atualizado.", 1);
+			AlertsAPI.instance.makeToast("Perfil atualizado", 1);
 			UserManager.UpdateUser(Response);
 		}
 		else

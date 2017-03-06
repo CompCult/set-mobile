@@ -43,7 +43,7 @@ public class Login : GenericScreen
 
 		AlertsAPI.instance.makeToast("Conectando-se...", 1);
 
-		WWW loginRequest = LoginAPI.RequestUser(email, password);
+		WWW loginRequest = UserAPI.RequestUser(email, password);
 		ProcessLogin (loginRequest);
 	}
 

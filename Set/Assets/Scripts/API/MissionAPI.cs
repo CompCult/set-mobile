@@ -19,7 +19,12 @@ public static class MissionAPI
 	public static WWW SendMissionResponse (Mission mission, MissionResponse missionResponse)
 	{
 		WWWForm responseForm = new WWWForm ();
- 		responseForm.AddField("user_id", missionResponse.user_id);
+
+		if (missionResponse.user_id != null)
+			responseForm.AddField("user_id", missionResponse.user_id);
+		if (missionResponse.group_id != null)
+			responseForm.AddField("group_id", missionResponse.group_id);
+
  		responseForm.AddField ("answerable_id", missionResponse.mission_id);
  		responseForm.AddField ("answerable_type", missionResponse.type);
 
@@ -33,7 +38,7 @@ public static class MissionAPI
 
  		if (mission.text_enabled)
  		{
- 			Debug.Log("Text: >>" + missionResponse.text + "<<");
+ 			Debug.Log("Text: '" + missionResponse.text + "'");
  			responseForm.AddField ("text", missionResponse.text);
  		}
 

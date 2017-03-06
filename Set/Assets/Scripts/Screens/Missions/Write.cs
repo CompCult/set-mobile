@@ -21,6 +21,9 @@ public class Write : GenericScreen
 			backScene = "Media";
 		else 
 			backScene = "Description";
+
+		if (MissionManager.missionResponse.text != null)
+			userText.text = MissionManager.missionResponse.text;
 	}
 
 	private bool CheckTexts() 

@@ -49,7 +49,7 @@ public class AlertsAPI : MonoBehaviour {
 	/// <param name="neutralButtonText">Neutral button text.</param>
 	public void makeAlert(string message, string neutralButtonText)
 	{
-		Debug.Log("Toast: " + message + " / Button: " + neutralButtonText);
+		Debug.Log("Alert: " + message + " / Button: " + neutralButtonText);
 
 		if (Application.platform != RuntimePlatform.Android) 
 			return;
@@ -68,6 +68,8 @@ public class AlertsAPI : MonoBehaviour {
 	/// <param name="negativeButtonText">Negative button text.</param>
 	public void makeAlert(string message, string neutralButtonText, string negativeButtonText)
 	{
+		Debug.Log("Alert: " + message + " / Button: " + neutralButtonText + " / Button 2: " + negativeButtonText);
+
 		if (Application.platform != RuntimePlatform.Android) 
 			return;
 

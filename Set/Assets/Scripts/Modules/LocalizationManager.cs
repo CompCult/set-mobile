@@ -16,7 +16,7 @@ public static class LocalizationManager
 
 	public static void Start () 
 	{
-		languageFile = (TextAsset) Resources.Load ("Lang/Translations", typeof(TextAsset));
+		languageFile = (TextAsset) Resources.Load ("Texts/Translations", typeof(TextAsset));
 		lang = "PT";
 
 		texts = new Dictionary<string, string>();

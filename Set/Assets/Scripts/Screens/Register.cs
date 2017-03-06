@@ -38,7 +38,7 @@ public class Register : GenericScreen
 
 		AlertsAPI.instance.makeToast("Registrando-se...", 1);
 
-		WWW registerRequest = LoginAPI.RequestRegister(name, email, cpf, registry, phone, institution, course, pass);
+		WWW registerRequest = UserAPI.RequestRegister(name, email, cpf, registry, phone, institution, course, pass);
 		ProcessRegister (registerRequest);
 	}
 

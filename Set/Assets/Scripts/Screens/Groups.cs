@@ -9,8 +9,6 @@ public class Groups : GenericScreen
 	public InputField newGroupField;
 	public GameObject groupCard;
 	public Text groupName;
-
-	public List<Group> groupsList;
 	
 	public void Start () 
 	{
@@ -30,7 +28,9 @@ public class Groups : GenericScreen
 		if (Error == null)
 		{
 			Debug.Log("Response:" + Response);
-			FillGroupsList(Response);
+			
+			GroupManager.UpdateGroups(Response);
+			CreateGroupsCard();
 		}
 		else 
 		{
@@ -39,24 +39,10 @@ public class Groups : GenericScreen
 		}
 	}
 
-	private void FillGroupsList(string groups)
-    {
-		string[] groupsJSON = groups.Replace ("[", "").Replace ("]", "").Replace ("},{", "}%{").Split ('%');
-     	groupsList = new List<Group>();
-
-		foreach (string groupJSON in groupsJSON)
-        {
-			Group group = JsonUtility.FromJson<Group>(groupJSON);
-        	groupsList.Add(group);
-        }
-
-        CreateGroupsCard();
-    }
-
     private void CreateGroupsCard ()
      {
      	Vector3 Position = groupCard.transform.position;
-     	foreach (Group group in groupsList)
+     	foreach (Group group in GroupManager.groups)
         {
         	groupName.text = group.name;
             Position = new Vector3(Position.x, Position.y, Position.z);
@@ -70,7 +56,7 @@ public class Groups : GenericScreen
 
      public void SelectGroup (Text groupName)
      {
-     	foreach (Group group in groupsList)
+     	foreach (Group group in GroupManager.groups)
      	{
      		if (group.name == groupName.text)
      		{

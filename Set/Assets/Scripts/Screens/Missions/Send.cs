@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Send : GenericScreen 
 {
+	public Dropdown groupsDropDown;
+
 	public void Start () 
 	{
 		AlertsAPI.instance.Init();
@@ -18,13 +21,52 @@ public class Send : GenericScreen
 		 	backScene = "Media";
 		else 
 			backScene = "Description";
+
+		RequestUserGroups();
+	}
+
+	private void RequestUserGroups ()
+	{
+		WWW groupsRequest = GroupAPI.RequestGroups();
+		string response = groupsRequest.text,
+		error = groupsRequest.error;
+
+		if (error == null)
+		{
+			GroupManager.UpdateGroups(response);
+			FillGroupsDropwdown();
+		}
+		else 
+		{
+			AlertsAPI.instance.makeAlert("Ops!\nHouve um problema ao receber seus grupos. Verifique sua conexão com a internet.", "Tudo bem");
+			LoadBackScene();
+		}
+	}
+
+	private void FillGroupsDropwdown()
+	{
+		foreach (Group group in GroupManager.groups) 
+     	{
+        	groupsDropDown.options.Add (new Dropdown.OptionData() {text = group.name});
+     	}
+
+     	groupsDropDown.RefreshShownValue();
 	}
 
 	public void SendMissionResponse ()
 	{
 		AlertsAPI.instance.makeToast("Enviando...", 1);
+		int participants = groupsDropDown.value;
 
-		MissionManager.missionResponse.user_id = UserManager.user.id;
+		if (participants == 0)
+		{
+			MissionManager.missionResponse.user_id = UserManager.user.id;
+		}
+		else
+		{
+			MissionManager.missionResponse.group_id = GroupManager.groups[participants-1].id;
+		}
+
 		MissionManager.missionResponse.mission_id = MissionManager.mission.id;
 
 		WWW responseForm = MissionAPI.SendMissionResponse(MissionManager.mission, MissionManager.missionResponse);
@@ -40,8 +82,16 @@ public class Send : GenericScreen
 		{
 			Debug.Log("Response from send mission: " + Response);
 
-			AlertsAPI.instance.makeToast("Enviado com sucesso", 1);
-			LoadScene("Answers");
+			if (MissionManager.missionResponse.group_id != null)
+			{
+				AlertsAPI.instance.makeAlert("Enviado com sucesso!\nAcompanhe o status do envio na página de envios de resposta.", "Entendi");
+				LoadScene("Answers");
+			}
+			else 
+			{
+				AlertsAPI.instance.makeAlert("Enviado com sucesso!\nAcompanhe o status do envio na página de seu grupo.", "Entendi");
+				LoadScene("Home");
+			}
 		}
 		else 
 		{

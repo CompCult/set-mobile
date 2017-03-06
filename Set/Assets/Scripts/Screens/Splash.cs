@@ -9,6 +9,7 @@ public class Splash : GenericScreen
 	public void Start () 
 	{
 		LocalizationManager.Start();
+		ErrorManager.Start();
 		backScene = null;
 
 		StartCoroutine(SplashTime());
