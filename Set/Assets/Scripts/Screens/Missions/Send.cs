@@ -46,9 +46,7 @@ public class Send : GenericScreen
 	private void FillGroupsDropwdown()
 	{
 		foreach (Group group in GroupManager.groups) 
-     	{
         	groupsDropDown.options.Add (new Dropdown.OptionData() {text = group.name});
-     	}
 
      	groupsDropDown.RefreshShownValue();
 	}
@@ -59,13 +57,9 @@ public class Send : GenericScreen
 		int participants = groupsDropDown.value;
 
 		if (participants == 0)
-		{
 			MissionManager.missionResponse.user_id = UserManager.user.id;
-		}
 		else
-		{
 			MissionManager.missionResponse.group_id = GroupManager.groups[participants-1].id;
-		}
 
 		MissionManager.missionResponse.mission_id = MissionManager.mission.id;
 
@@ -84,13 +78,13 @@ public class Send : GenericScreen
 
 			if (MissionManager.missionResponse.group_id != null)
 			{
-				AlertsAPI.instance.makeAlert("Enviado com sucesso!\nAcompanhe o status do envio na página de envios de resposta.", "Entendi");
-				LoadScene("Answers");
+				AlertsAPI.instance.makeAlert("Enviado com sucesso!\nAcompanhe o status do envio na página de seu grupo.", "Entendi");
+				LoadScene("Home");
 			}
 			else 
 			{
-				AlertsAPI.instance.makeAlert("Enviado com sucesso!\nAcompanhe o status do envio na página de seu grupo.", "Entendi");
-				LoadScene("Home");
+				AlertsAPI.instance.makeAlert("Enviado com sucesso!\nAcompanhe o status do envio na página de envios de resposta.", "Entendi");
+				LoadScene("Answers");
 			}
 		}
 		else 

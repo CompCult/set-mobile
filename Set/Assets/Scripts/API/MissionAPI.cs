@@ -20,10 +20,16 @@ public static class MissionAPI
 	{
 		WWWForm responseForm = new WWWForm ();
 
-		if (missionResponse.user_id != null)
+		if (missionResponse.user_id != null && missionResponse.user_id != 0)
+		{
 			responseForm.AddField("user_id", missionResponse.user_id);
+			Debug.Log("User ID: " + missionResponse.user_id);
+		}
 		if (missionResponse.group_id != null)
+		{
 			responseForm.AddField("group_id", missionResponse.group_id);
+			Debug.Log("Group ID: " + missionResponse.group_id);
+		}
 
  		responseForm.AddField ("answerable_id", missionResponse.mission_id);
  		responseForm.AddField ("answerable_type", missionResponse.type);
