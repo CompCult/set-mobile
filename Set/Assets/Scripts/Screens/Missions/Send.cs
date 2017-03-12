@@ -76,7 +76,7 @@ public class Send : GenericScreen
 		{
 			Debug.Log("Response from send mission: " + Response);
 
-			if (MissionManager.missionResponse.group_id != null)
+			if (MissionManager.missionResponse.group_id != 0)
 			{
 				AlertsAPI.instance.makeAlert("Enviado com sucesso!\nAcompanhe o status do envio na página de seu grupo.", "Entendi");
 				LoadScene("Home");

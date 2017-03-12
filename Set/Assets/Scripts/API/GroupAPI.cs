@@ -62,4 +62,17 @@ public static class GroupAPI
 		WebAPI.apiPlace = "/group/show/" + GroupManager.group.id + "/";
 		return WebAPI.Get();
 	}
+
+	public static WWW SendGroupEmail(string message, User author)
+	{
+		WWWForm emailForm = new WWWForm ();
+		emailForm.AddField ("subject", "[Change Trees] Mensagem do Grupo " + GroupManager.group.name);
+		emailForm.AddField ("body", message);
+		emailForm.AddField ("author", author.email);
+
+		Debug.Log("Author: " + author.email + " / Message: " + message);
+
+		WebAPI.apiPlace = "/group/" + GroupManager.group.id + "/notify/";
+		return WebAPI.Post(emailForm);
+	}
 }

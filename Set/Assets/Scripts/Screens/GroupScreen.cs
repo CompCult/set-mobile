@@ -6,18 +6,36 @@ using UnityEngine.SceneManagement;
 
 public class GroupScreen : GenericScreen 
 {
-	public GameObject memberCard, deleteMemberButton, deleteGroupButton, exitGroupButton;
+	public GameObject memberCard, memberList, emailField;
+	public Button deleteMemberButton, deleteGroupButton, exitGroupButton, emailButton, answersButton, addMemberButton;
 	public Text groupName, memberName, memberEmail, newMemberEmail;
 
-	private bool isOwner;
+	private bool isOwner, isWritingEmail = false;
 
 	public void Start () 
 	{
 		AlertsAPI.instance.Init();
 		backScene = "Groups";
+
 		groupName.text = GroupManager.group.name;
 
+		if (GroupManager.group.owner_id == UserManager.user.id)
+			emailButton.GetComponent<Button>().interactable = true;
+		else 
+			emailButton.GetComponent<Button>().interactable = false;
+
 		RequestGroupInfo();
+	}
+
+	public override void Update()
+	{
+		if (Input.GetKeyUp(KeyCode.Escape))
+		{
+			if (isWritingEmail)
+				ReloadScene();
+			else 
+				LoadBackScene();
+		}
 	}
 
 	private void RequestGroupInfo ()
@@ -35,12 +53,14 @@ public class GroupScreen : GenericScreen
 			if (GroupManager.group.owner_id == UserManager.user.id)
 			{
 				isOwner = true;
-				deleteGroupButton.SetActive(true);
+				deleteGroupButton.gameObject.SetActive(true);
+				exitGroupButton.gameObject.SetActive(false);
 			}
 			else
 			{
 				isOwner = false;
-				exitGroupButton.SetActive(true);
+				exitGroupButton.gameObject.SetActive(true);
+				deleteGroupButton.gameObject.SetActive(false);
 			}
 
 			CreateMembersCard();
@@ -60,21 +80,59 @@ public class GroupScreen : GenericScreen
         	memberName.text = member.name;
         	memberEmail.text = member.email;
 
-        	if (member.id == GroupManager.group.owner_id)
-        		deleteMemberButton.SetActive(false);
+        	if (member.id == GroupManager.group.owner_id) // Owners cant delete themselves
+        		deleteMemberButton.gameObject.SetActive(false);
         	else 
-        		if (isOwner)
-        			deleteMemberButton.SetActive(true);
+        		if (isOwner) // Owners can delete other members
+        			deleteMemberButton.gameObject.SetActive(true);
 
             Position = new Vector3(Position.x, Position.y, Position.z);
 
             GameObject Card = (GameObject) Instantiate(memberCard, Position, Quaternion.identity);
             Card.transform.SetParent(GameObject.Find("Area").transform, false);
-
-            Debug.Log("Membro: " + member.name + " / Email: " + member.email);
         }
 
         Destroy(memberCard);
+    }
+
+    public void SendEmail()
+    {
+    	if (isWritingEmail)
+    	{
+    		User author = UserManager.user;    		
+    		string message = emailField.GetComponent<InputField>().text;
+    	
+    		WWW emailForm = GroupAPI.SendGroupEmail(message, author);
+
+    		string error = emailForm.error,
+   			response = emailForm.text;
+
+   			if (error != null || response.Contains("success"))
+   			{
+ 				Debug.Log("Email response:" + response);
+
+   				AlertsAPI.instance.makeAlert("Mensagem enviada com sucesso!", "OK");
+   				ReloadScene();
+   			}
+   			else 
+   			{
+   				Debug.Log("Email error:" + error);
+   				AlertsAPI.instance.makeAlert("Falha ao enviar mensagem. Verifique sua conexão com a internet e tente novamente em instantes.", "OK");
+   			}
+    	}
+    	else 
+    	{
+    		memberList.SetActive(false);
+    		emailField.SetActive(true);
+
+ 			// TODO - Loop to deactive all
+ 			answersButton.interactable = false;
+ 			exitGroupButton.interactable = false;
+ 			deleteGroupButton.interactable = false;
+ 			addMemberButton.interactable = false;
+    	}
+
+    	isWritingEmail = !isWritingEmail;
     }
 
     public void AddMember()
