@@ -63,7 +63,7 @@ public static class GroupAPI
 		return WebAPI.Get();
 	}
 
-	public static WWW SendGroupEmail(string message, User author)
+	public static WWW SendGroupMessage (string message, User author)
 	{
 		WWWForm emailForm = new WWWForm ();
 		emailForm.AddField ("subject", "[Change Trees] Mensagem do Grupo " + GroupManager.group.name);

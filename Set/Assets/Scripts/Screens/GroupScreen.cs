@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class GroupScreen : GenericScreen 
 {
-	public GameObject memberCard, memberList, emailField;
-	public Button deleteMemberButton, deleteGroupButton, exitGroupButton, emailButton, answersButton, addMemberButton;
+	public GameObject memberCard, memberList, messageField;
+	public Button deleteMemberButton, deleteGroupButton, exitGroupButton, messageButton, answersButton, addMemberButton;
 	public Text groupName, memberName, memberEmail, newMemberEmail;
 
-	private bool isOwner, isWritingEmail = false;
+	private bool isOwner, isWritingMessage = false;
 
 	public void Start () 
 	{
@@ -20,9 +20,9 @@ public class GroupScreen : GenericScreen
 		groupName.text = GroupManager.group.name;
 
 		if (GroupManager.group.owner_id == UserManager.user.id)
-			emailButton.GetComponent<Button>().interactable = true;
+			messageButton.GetComponent<Button>().interactable = true;
 		else 
-			emailButton.GetComponent<Button>().interactable = false;
+			messageButton.GetComponent<Button>().interactable = false;
 
 		RequestGroupInfo();
 	}
@@ -31,7 +31,7 @@ public class GroupScreen : GenericScreen
 	{
 		if (Input.GetKeyUp(KeyCode.Escape))
 		{
-			if (isWritingEmail)
+			if (isWritingMessage)
 				ReloadScene();
 			else 
 				LoadBackScene();
@@ -95,44 +95,52 @@ public class GroupScreen : GenericScreen
         Destroy(memberCard);
     }
 
-    public void SendEmail()
+    public void SendMessage()
     {
-    	if (isWritingEmail)
+    	if (isWritingMessage)
     	{
     		User author = UserManager.user;    		
-    		string message = emailField.GetComponent<InputField>().text;
+    		string message = messageField.GetComponent<InputField>().text;
+
+    		if (message.Length < 10)
+    		{
+    			AlertsAPI.instance.makeAlert("Sua mensagem deve conter pelo menos dez caracteres.", "Entendi");
+    			return;
+    		}
     	
-    		WWW emailForm = GroupAPI.SendGroupEmail(message, author);
+    		WWW messageForm = GroupAPI.SendGroupMessage(message, author);
 
-    		string error = emailForm.error,
-   			response = emailForm.text;
+    		string error = messageForm.error,
+   			response = messageForm.text;
 
-   			if (error != null || response.Contains("success"))
+   			if (response.Contains(ErrorManager.GetText("MessageSent")))
    			{
- 				Debug.Log("Email response:" + response);
+ 				Debug.Log("Message response: " + response);
 
    				AlertsAPI.instance.makeAlert("Mensagem enviada com sucesso!", "OK");
    				ReloadScene();
    			}
    			else 
    			{
-   				Debug.Log("Email error:" + error);
+   				Debug.Log("Message error: " + error);
    				AlertsAPI.instance.makeAlert("Falha ao enviar mensagem. Verifique sua conexão com a internet e tente novamente em instantes.", "OK");
    			}
     	}
     	else 
     	{
     		memberList.SetActive(false);
-    		emailField.SetActive(true);
+    		messageField.SetActive(true);
 
  			// TODO - Loop to deactive all
  			answersButton.interactable = false;
  			exitGroupButton.interactable = false;
  			deleteGroupButton.interactable = false;
  			addMemberButton.interactable = false;
+
+ 			messageButton.transform.GetChild(0).GetComponent<Text>().text = "Enviar";
     	}
 
-    	isWritingEmail = !isWritingEmail;
+    	isWritingMessage = !isWritingMessage;
     }
 
     public void AddMember()
