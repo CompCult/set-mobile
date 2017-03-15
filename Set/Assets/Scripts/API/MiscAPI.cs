@@ -8,7 +8,7 @@ using System.Text;
 
 public static class MiscAPI
 {
-	private static string version = "0.2.4";
+	private static string version = "0.2.5";
 
 	public static WWW RequestVersion ()
 	{
