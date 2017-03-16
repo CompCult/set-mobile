@@ -55,11 +55,4 @@ public static class UserAPI
 
 		return WebAPI.Get();
 	}
-
-	public static WWW RequestRanking ()
-	{
-		WebAPI.apiPlace = "/user/rank/";
-
-		return WebAPI.Get();
-	}
 }

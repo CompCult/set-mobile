@@ -5,20 +5,28 @@ using System.Collections.Generic;
 
 public class Ranking : GenericScreen 
 {
-	public GameObject userCard;
-	public Text userName, userXP, userPlace;
+	public GameObject rankingCard;
+	public Text cardName, cardXP, cardPlace;
 
 	public void Start() 
 	{
 		AlertsAPI.instance.Init();
 		backScene = "Home";
 
+		if (sceneSchema == null)
+			sceneSchema = "user-ranking";
+
 		RequestRanking();
 	}
 
 	private void RequestRanking()
 	{
-		WWW rankingRequest = UserAPI.RequestRanking();
+		WWW rankingRequest;
+
+		if (sceneSchema.Equals("user-ranking"))
+			rankingRequest = RankingAPI.RequestUserRanking();
+		else
+			rankingRequest = RankingAPI.RequestGroupRanking();
 
 		string Response = rankingRequest.text,
 		Error = rankingRequest.error;
@@ -27,8 +35,16 @@ public class Ranking : GenericScreen
 		{
 			Debug.Log("Response:" + Response);
 
-			UserManager.UpdateRanking(Response);
-			CreateUserCards();
+			if (sceneSchema.Equals("user-ranking"))
+			{
+				RankingAPI.UpdateUserRanking(Response);
+				CreateUserCards();
+			}
+			else
+			{
+				RankingAPI.UpdateGroupRanking(Response);
+				CreateGroupCards();
+			}
 		}
 		else 
 		{
@@ -40,21 +56,50 @@ public class Ranking : GenericScreen
 	private void CreateUserCards ()
      {
      	int place = 1;
-     	Vector3 Position = userCard.transform.position;
-     	foreach (User user in UserManager.ranking)
+     	Vector3 Position = rankingCard.transform.position;
+
+     	foreach (User user in RankingAPI.userRanking)
         {
-        	userName.text = user.name;
-        	userXP.text = user.xp + " EXP";
-        	userPlace.text = place.ToString();
+        	cardName.text = user.name;
+        	cardXP.text = user.xp + " EXP";
+        	cardPlace.text = place.ToString();
 
             Position = new Vector3(Position.x, Position.y, Position.z);
 
-            GameObject Card = (GameObject) Instantiate(userCard, Position, Quaternion.identity);
+            GameObject Card = (GameObject) Instantiate(rankingCard, Position, Quaternion.identity);
             Card.transform.SetParent(GameObject.Find("Area").transform, false);
 
             place++;
         }
 
-        Destroy(userCard);
+        Destroy(rankingCard);
+    }
+
+    private void CreateGroupCards ()
+    {
+     	int place = 1;
+     	Vector3 Position = rankingCard.transform.position;
+
+     	foreach (Group group in RankingAPI.groupRanking)
+        {
+        	cardName.text = group.name;
+        	cardXP.text = group.points + " EXP";
+        	cardPlace.text = place.ToString();
+
+            Position = new Vector3(Position.x, Position.y, Position.z);
+
+            GameObject Card = (GameObject) Instantiate(rankingCard, Position, Quaternion.identity);
+            Card.transform.SetParent(GameObject.Find("Area").transform, false);
+
+            place++;
+        }
+
+        Destroy(rankingCard);
+    }
+
+    public void ShowRanking(string type)
+    {
+    		sceneSchema = type;
+    		ReloadScene();
     }
 }

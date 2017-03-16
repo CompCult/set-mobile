@@ -75,10 +75,4 @@ public static class GroupAPI
 		WebAPI.apiPlace = "/group/" + GroupManager.group.id + "/notify/";
 		return WebAPI.Post(emailForm);
 	}
-
-	public static WWW RequestRanking()
-	{
-		WebAPI.apiPlace = "/group/rank/";
-		return WebAPI.Get();
-	}
 }
