@@ -30,6 +30,8 @@ public class Splash : GenericScreen
 		// Enables Android Navigation Bar
 		AndroidScreen.navigationBarState = AndroidScreen.States.Visible;
 
+		loadingIcon.SetActive(true);
+
 		if (IsUpdated())
 		{
 			if (PlayerPrefs.HasKey("ChangeTrees-StartAlert"))
@@ -67,7 +69,7 @@ public class Splash : GenericScreen
 			}
 			else
 			{
-				AlertsAPI.instance.makeAlert("Versão incorreta!\nAcesse nossa página de aplicativo na Play Store e atualize seu Change Trees para a última versão.", "Entendi");
+				AlertsAPI.instance.makeAlert("Versão desatualizada!\nAcesse nossa página de aplicativo na Play Store e atualize seu Change Trees para a última versão.", "Entendi");
 				return false;
 			}
 		}

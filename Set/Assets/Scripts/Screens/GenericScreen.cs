@@ -4,13 +4,18 @@ using System.Collections;
 
 public class GenericScreen : MonoBehaviour 
 {
-	protected static string backScene,
-	nextScene;
+	protected static string backScene, nextScene;
+	public static string sceneSchema;
 
 	public virtual void Update()
 	{
 		if (Input.GetKeyUp(KeyCode.Escape)) 
 			LoadBackScene();
+	}
+
+	public void SetSchema(string schema)
+	{
+		sceneSchema = schema;
 	}
 
 	public void LoadNextScene()
