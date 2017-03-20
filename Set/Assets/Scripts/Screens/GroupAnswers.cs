@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Answers : GenericScreen 
+public class GroupAnswers : GenericScreen 
 {
 	public GameObject answerCard, pendentIcon, approvedIcon, deniedIcon, noMissions;
 	public Text answerCode, answerDate;
@@ -13,14 +13,14 @@ public class Answers : GenericScreen
 	public void Start () 
 	{
 		AlertsAPI.instance.Init();
-		backScene = "Home";
+		backScene = "GroupScreen";
 
 		ReceiveUserAnswers();
 	}
 
 	private void ReceiveUserAnswers()
 	{
-		WWW answersRequest = AnswersAPI.RequestUserAnswers();
+		WWW answersRequest = AnswersAPI.RequestGroupAnswers();
 
 		string Response = answersRequest.text,
 		Error = answersRequest.error;
