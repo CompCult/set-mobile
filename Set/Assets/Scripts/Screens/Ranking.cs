@@ -60,6 +60,9 @@ public class Ranking : GenericScreen
 
      	foreach (User user in RankingAPI.userRanking)
         {
+        	if (place == 6)
+        		break;
+
         	cardName.text = user.name;
         	cardXP.text = user.xp + " EXP";
         	cardPlace.text = place.ToString();
@@ -82,6 +85,9 @@ public class Ranking : GenericScreen
 
      	foreach (Group group in RankingAPI.groupRanking)
         {
+        	if (place == 6)
+        		break;
+        	
         	cardName.text = group.name;
         	cardXP.text = group.points + " EXP";
         	cardPlace.text = place.ToString();
