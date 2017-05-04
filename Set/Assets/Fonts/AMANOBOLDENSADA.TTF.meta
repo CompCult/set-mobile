@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 66fd879cf7a33b048a3d5f9deb9912d4
+timeCreated: 1493781208
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: AManoBoldensada
+  fontNames:
+  - AManoBoldensada
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
