@@ -12,6 +12,8 @@ public class Login : GenericScreen
 	public InputField emailField, passField;
 	public Toggle rememberMe;
 
+	private int toggleDevModeCounter;
+
 	public void Start () 
 	{
 		AlertsAPI.instance.Init();
@@ -124,5 +126,16 @@ public class Login : GenericScreen
 
 	 	Regex reg = new Regex(emailRegularExpression);
 		return reg.IsMatch(email);
+	}
+
+	public void ToggleDevMode()
+	{
+		toggleDevModeCounter++;
+
+		if (toggleDevModeCounter == 10)
+		{
+			WebAPI.ToggleURL();
+			toggleDevModeCounter = 0;
+		}
 	}
 }

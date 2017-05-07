@@ -12,18 +12,18 @@ public class Splash : GenericScreen
 		ErrorManager.Start();
 		backScene = null;
 
-		StartCoroutine(SplashTime());
+		SplashTime();
 	}
 
 	public void ContinueToLogin(bool DefinitiveContinue)
 	{
 		if (DefinitiveContinue)
-			PlayerPrefs.SetString("ChangeTrees-StartAlert", "NoAlert");
+			PlayerPrefs.SetString("ChangeTrees-NoAlert", "1");
 
 		LoadScene("Login");
 	}
 
-	private IEnumerator SplashTime () 
+	private void SplashTime () 
 	{
 		// Disables Android Status Bar
 		AndroidScreen.statusBarState = AndroidScreen.States.Hidden;
@@ -34,9 +34,8 @@ public class Splash : GenericScreen
 
 		if (IsUpdated())
 		{
-			if (PlayerPrefs.HasKey("ChangeTrees-StartAlert"))
+			if (PlayerPrefs.HasKey("ChangeTrees-NoAlert"))
 			{
-				yield return new WaitForSeconds(2);
 				LoadScene("Login");
 			}
 			else
@@ -48,7 +47,6 @@ public class Splash : GenericScreen
 		else
 		{
 			loadingIcon.SetActive(false);
-			alertMenu.SetActive(false);
 			fruitIcon.SetActive(true);
 		}
 	}
