@@ -32,15 +32,13 @@ public class QuizAnswer : GenericScreen
 
      	for (int i=0; i < answers.Length; i++)
         {
-        	if (answers[i] != null || !answers.Equals(""))
+        	if (!answers[i].Equals(""))
         	{
 	        	answerText.text = answers[i];
 	            Position = new Vector3(Position.x, Position.y, Position.z);
 
 	            GameObject Card = (GameObject) Instantiate(answerCard, Position, Quaternion.identity);
 	            Card.transform.SetParent(GameObject.Find("Area").transform, false);
-
-	            Debug.Log(answers[i]);
         	}
         }
 
@@ -77,7 +75,7 @@ public class QuizAnswer : GenericScreen
 			AlertsAPI.instance.makeToast("Resposta enviada", 1);
 
 			if (QuizManager.quiz.next_quiz == 0)
-				LoadScene("Home");
+				LoadScene("Quizzes");
 			else 
 				GoToNextQuiz (QuizManager.quiz.next_quiz);
 		}
@@ -94,7 +92,9 @@ public class QuizAnswer : GenericScreen
 
 	private void GoToNextQuiz (int nextQuiz)
     {
-     	WWW quizRequest = QuizAPI.RequestPrivateQuiz(CalculateSHA1(nextQuiz));
+    	string nextQuizCode = CalculateSHA1(nextQuiz);
+    	Debug.Log(nextQuizCode);
+     	WWW quizRequest = QuizAPI.RequestPrivateQuiz(nextQuizCode);
 
      	string Error = quizRequest.error,
      	Response = quizRequest.text;
@@ -121,8 +121,8 @@ public class QuizAnswer : GenericScreen
    	private string CalculateSHA1 (int nextQuiz)
 	{
 		StringBuilder sb = new StringBuilder();
-		foreach (byte b in GetHash("compcult-set-" + nextQuiz))
-			sb.Append(b.ToString("X2"));
+		foreach (byte b in GetHash("compcult-set-quiz-" + nextQuiz))
+			sb.Append(b.ToString("x2"));
  
 		return sb.ToString().Substring(0, 8);
 	}

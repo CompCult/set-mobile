@@ -17,16 +17,5 @@ public class Quiz
 				  option_5;
 
 	public string[] answers;
-
-	public void NormalizeAnswers()
-	{
-		answers = new string[5];
-
-		answers[0] = option_1;
-		answers[1] = option_2;
-		answers[2] = option_3;
-		answers[3] = option_4;
-		answers[4] = option_5;
-	}
 }
 

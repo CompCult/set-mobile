@@ -4,4 +4,5 @@
 	<PT Key = "EmailDontExist" Word = "We do not have an user registered with this email"/>
 	<PT Key = "InvalidMission" Word = "The mission could not be found"/>
 	<PT Key = "InvalidSecretMission" Word = "A mission with the code you have provided could not be found"/>
+	<PT Key = "InvalidSecretQuiz" Word = "A quiz with the code you have provided could not be found"/>
 </Data>
