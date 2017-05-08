@@ -20,7 +20,7 @@ public class Missions : GenericScreen
 		ReceivePublicMissions();
 	}
 
-	private void ReceivePublicMissions()
+	private void ReceivePublicMissions ()
 	{
 		WWW missionsRequest = MissionAPI.RequestPublicMisions();
 
@@ -39,9 +39,9 @@ public class Missions : GenericScreen
 		}
 	}
 
-	private void FillmissionList(string activities)
+	private void FillmissionList (string missions)
     {
-		string[] missionsJSON = activities.Replace ("[", "").Replace ("]", "").Replace ("},{", "}%{").Split ('%');
+		string[] missionsJSON = missions.Replace ("[", "").Replace ("]", "").Replace ("},{", "}%{").Split ('%');
      	missionList = new List<Mission>();
 
 		foreach (string missionJSON in missionsJSON)
@@ -72,7 +72,7 @@ public class Missions : GenericScreen
         Destroy(missionCard);
      }
 
-     public void SelectPrivateMission()
+     public void SearchPrivateMission ()
      {
      	if (privateMissionID.text == "")
      		return;
@@ -102,7 +102,7 @@ public class Missions : GenericScreen
      	}
      }
 
-     public void SelectPublicMission(Text missionName)
+     public void StartPublicMission (Text missionName)
      {
      	foreach (Mission mission in missionList)
      	{
