@@ -32,7 +32,7 @@ public class QuizAnswer : GenericScreen
 
      	for (int i=0; i < answers.Length; i++)
         {
-        	if (answers[i] != null)
+        	if (answers[i] != null || !answers.Equals(""))
         	{
 	        	answerText.text = answers[i];
 	            Position = new Vector3(Position.x, Position.y, Position.z);
