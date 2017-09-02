@@ -23,7 +23,7 @@ public class Home : GenericScreen
 		string Error = userRequest.error,
 		Response = userRequest.text;
 
-		if (Error == null)
+		if (Error == "")
 		{
 			Debug.Log("User updated");
 

@@ -54,7 +54,7 @@ public class Login : GenericScreen
 		string error = loginRequest.error,
 		response = loginRequest.text;
 
-		if (error == null) 
+		if (error == "") 
 		{
 			Debug.Log("Response received: " + response);
 

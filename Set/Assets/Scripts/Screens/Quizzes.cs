@@ -26,7 +26,7 @@ public class Quizzes : GenericScreen
 		string Response = quizzesRequest.text,
 		Error = quizzesRequest.error;
 
-		if (Error == null)
+		if (Error == "")
 		{
 			FillQuizzesList(Response);
 			CreateQuizzesCards();
@@ -81,7 +81,7 @@ public class Quizzes : GenericScreen
      	string Error = quizRequest.error,
      	Response = quizRequest.text;
 
-     	if (Error == null)
+     	if (Error == "")
      	{
      		if (Response.Contains(LocalizationManager.GetText("InvalidSecretQuiz")))
      		{

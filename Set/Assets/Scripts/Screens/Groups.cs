@@ -25,7 +25,7 @@ public class Groups : GenericScreen
 		string Response = groupsRequest.text,
 		Error = groupsRequest.error;
 
-		if (Error == null)
+		if (Error == "")
 		{
 			Debug.Log("Response:" + Response);
 			
@@ -86,7 +86,7 @@ public class Groups : GenericScreen
 		string Error = createRequest.error,
 		Response = createRequest.text;
 
-		if (Error == null) 
+		if (Error == "") 
 		{
 			AlertsAPI.instance.makeToast("Grupo criado com sucesso", 1);
 			ReloadScene();

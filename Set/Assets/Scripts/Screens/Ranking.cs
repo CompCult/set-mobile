@@ -31,7 +31,7 @@ public class Ranking : GenericScreen
 		string Response = rankingRequest.text,
 		Error = rankingRequest.error;
 
-		if (Error == null)
+		if (Error == "")
 		{
 			Debug.Log("Response:" + Response);
 

@@ -45,7 +45,7 @@ public class GroupScreen : GenericScreen
 		string Response = infoRequest.text,
 		Error = infoRequest.error;
 
-		if (Error == null)
+		if (Error == "")
 		{
 			GroupManager.UpdateGroup(Response);
 
@@ -171,7 +171,7 @@ public class GroupScreen : GenericScreen
 		string Error = addRequest.error,
 		Response = addRequest.text;
 
-		if (Error == null) 
+		if (Error == "") 
 		{
 			AlertsAPI.instance.makeToast("Membro adicionado", 1);
 			ReloadScene();
@@ -220,7 +220,7 @@ public class GroupScreen : GenericScreen
 		string Error = addRequest.error,
 		Response = addRequest.text;
 
-		if (Error == null) 
+		if (Error == "") 
 		{
 			if (isOwner)
 			{
@@ -257,7 +257,7 @@ public class GroupScreen : GenericScreen
 		string Error = removeRequest.error,
 		Response = removeRequest.text;
 
-		if (Error == null) 
+		if (Error == "") 
 		{
 			AlertsAPI.instance.makeToast("Grupo excluído", 1);
 			LoadBackScene();

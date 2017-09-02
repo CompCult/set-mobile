@@ -25,7 +25,7 @@ public class Answers : GenericScreen
 		string Response = answersRequest.text,
 		Error = answersRequest.error;
 
-		if (Error == null)
+		if (Error == "")
 		{
 			FillAnswersList(Response);
 			//CreateActivitiesCards();

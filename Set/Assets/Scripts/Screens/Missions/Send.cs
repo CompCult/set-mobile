@@ -28,12 +28,12 @@ public class Send : GenericScreen
 	private void RequestUserGroups ()
 	{
 		WWW groupsRequest = GroupAPI.RequestGroups();
-		string response = groupsRequest.text,
-		error = groupsRequest.error;
+		string Response = groupsRequest.text,
+		Error = groupsRequest.error;
 
-		if (error == null)
+		if (Error == "")
 		{
-			GroupManager.UpdateGroups(response);
+			GroupManager.UpdateGroups(Response);
 			FillGroupsDropwdown();
 		}
 		else 
@@ -72,7 +72,7 @@ public class Send : GenericScreen
 		string Error = responseForm.error,
 		Response = responseForm.text;
 
-		if (Error == null) 
+		if (Error == "") 
 		{
 			Debug.Log("Response from send mission: " + Response);
 

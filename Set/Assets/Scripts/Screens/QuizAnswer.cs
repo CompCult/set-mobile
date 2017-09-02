@@ -70,7 +70,7 @@ public class QuizAnswer : GenericScreen
 		string Error = responseForm.error,
 		Response = responseForm.text;
 
-		if (Error == null) 
+		if (Error == "") 
 		{
 			AlertsAPI.instance.makeToast("Resposta enviada", 1);
 
@@ -99,7 +99,7 @@ public class QuizAnswer : GenericScreen
      	string Error = quizRequest.error,
      	Response = quizRequest.text;
 
-     	if (Error == null)
+     	if (Error == "")
      	{
      		if (Response.Contains(LocalizationManager.GetText("InvalidSecretQuiz")))
      		{

@@ -47,7 +47,7 @@ public class Register : GenericScreen
 		string Response = registerRequest.text,
 		Error = registerRequest.error;
 
-		if (Error == null) 
+		if (Error == "") 
 		{
 			Debug.Log("Response Register: " + Response);
 

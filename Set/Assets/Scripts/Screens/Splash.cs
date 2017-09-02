@@ -34,15 +34,7 @@ public class Splash : GenericScreen
 
 		if (IsUpdated())
 		{
-			if (PlayerPrefs.HasKey("ChangeTrees-NoAlert"))
-			{
-				LoadScene("Login");
-			}
-			else
-			{
-				loadingIcon.SetActive(false);
-				alertMenu.SetActive(true);
-			}
+			LoadScene("Login");
 		}
 		else
 		{
@@ -58,7 +50,7 @@ public class Splash : GenericScreen
 		string Error = versionRequest.error,
 		Response = versionRequest.text;
 
-		if (Error == null)
+		if (Error == "")
 		{
 			if (MiscAPI.GetVersion() == Response)
 			{

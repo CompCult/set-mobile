@@ -66,7 +66,7 @@ public class Profile : GenericScreen
 		string Error = updateRequest.error,
 		Response = updateRequest.text;
 
-		if (Error == null) 
+		if (Error == "") 
 		{
 			Debug.Log("Update response: " + Response);
 			

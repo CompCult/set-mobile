@@ -27,7 +27,7 @@ public class Missions : GenericScreen
 		string Response = missionsRequest.text,
 		Error = missionsRequest.error;
 
-		if (Error == null)
+		if (Error == "")
 		{
 			FillmissionList(Response);
 			CreateActivitiesCards();
@@ -82,7 +82,7 @@ public class Missions : GenericScreen
      	string Error = missionRequest.error,
      	Response = missionRequest.text;
 
-     	if (Error == null)
+     	if (Error == "")
      	{
      		if (Response.Contains(LocalizationManager.GetText("InvalidSecretMission")))
      		{
